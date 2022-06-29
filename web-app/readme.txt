@@ -6,7 +6,7 @@ Per far girare flask:
 
 Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
   - cartella principale che contiene il file .py
-  - sottocartella chiamata 'static' che contiene il file html
+  - sottocartella chiamata 'static' che contiene il file html, in questa cartella devono essere anche le (eventuali) immagini
   - sottocartella chiamata 'templates'
     - sottocartella chiamata 'styles' che contiene il file CSS
   
