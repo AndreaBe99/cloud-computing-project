@@ -3,12 +3,19 @@ from pycaret.regression import *
 import pandas as pd
 import pickle
 import numpy as np
+from df_Manipulation import *
 
 PATH = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/final_all_season.csv"
 
 app = Flask(__name__)
 
-model = pickle.load('../lr_model.pkl')
+# open a file, where you stored the pickled data
+file = open('lr_model.pkl', 'rb')
+# dump information to that file
+model = pickle.load(file)
+# close the file
+file.close()
+    
 cols = ['season', 'Date', 'HomeTeam', 'AwayTeam', 'B365H', 'B365D', 'B365A']
 
 @app.route('/')
@@ -18,34 +25,36 @@ def home():
 def dataset_manipulation(df):
     all_season = pd.read_csv(PATH, low_memory=False)
 
-    # Get Rank of current season
-    df['ht_rank'] = np.where(all_season['HomeTeam'] == df['HomeTeam'][0] & all_season['season'] == df['season'][0], all_season['ht_rank'][0])
-    df['at_rank'] = np.where(all_season['AwayTeam'] == df['AwayTeam'][0] & all_season['season'] == df['season'][0], all_season['at_rank'][0])
-
-    # Get Rank of last season
-    df['ht_ls_rank'] = np.where(all_season['HomeTeam'] == df['HomeTeam'][0] & all_season['season'] == df['season'][0], all_season['ht_ls_rank'][0])
-    df['at_ls_rank'] = np.where(all_season['AwayTeam'] == df['AwayTeam'][0] & all_season['season'] == df['season'][0], all_season['at_ls_rank'][0])  
-
-    # Get amount of days since last match
-    last_date = all_season[(all_season['Date'] < df['Date']) & (all_season['season'] == df['season']) & ( (all_season["HomeTeam"] == df['HomeTeam']) | (all_season["AwayTeam"] == df['HomeTeam']) ) ].Date.max()
-    days = (df['Date'] - last_date)/np.timedelta64(1,'D')
-    df['ht_days_ls_match'] = days
-
-    last_date = all_season[(all_season['Date'] < df['Date']) & (all_season['season'] == df['season']) & ( (all_season["HomeTeam"] == df['AwayTeam']) | (all_season["AwayTeam"] == df['AwayTeam']) ) ].Date.max()
-    days = (df['Date'] - last_date)/np.timedelta64(1,'D')
-    df['at_days_ls_match'] = days
-
-    
-
-
     # Convert Date Column to Datetime
     df['Date'] = pd.to_datetime(df.Date)
+    all_season['Date'] = pd.to_datetime(all_season.Date)
+
+    cols = ['_rank', '_ls_rank', '_days_ls_match', '_points',
+        '_l_points', '_l_wavg_points', '_goals', '_l_goals', '_l_wavg_goals', 
+        '_goals_sf', '_l_goals_sf', '_l_wavg_goals_sf','_wins', '_draws', 
+        '_losses', '_win_streak', '_loss_streak', '_draw_streak']
+
+    ht_cols = ['ht' + col for col in cols]
+    at_cols = ['at' + col for col in cols]
+
+    #gets main cols for home and away team
+    df[ht_cols] = pd.DataFrame(df.apply(lambda x: create_main_cols(all_season, x, x.HomeTeam), axis=1).to_list(), index=df.index)
+    df[at_cols] = pd.DataFrame(df.apply(lambda x: create_main_cols(all_season, x, x.AwayTeam), axis=1).to_list(), index=df.index)
+    #result between last game of the teams
+    df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis = 1)
+
+    return df
 
 @app.route('/predict',methods=['POST'])
 def predict():
+    # Create a dataframe from the HTML form
     int_features = [x for x in request.form.values()]
     final = np.array(int_features)
     data_unseen = pd.DataFrame([final], columns = cols)
+
+    # Add usefull column 
+    data_unseen = dataset_manipulation(data_unseen)
+
     prediction = predict_model(model, data=data_unseen, round = 0)
     prediction = int(prediction.Label[0])
     return render_template('home.html',pred='Expected Bill will be {}'.format(prediction))
