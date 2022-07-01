@@ -214,3 +214,5 @@
                                             subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
 2022-07-01 12:11:15,954:INFO:Checking exceptions
 2022-07-01 12:11:15,955:INFO:Preloading libraries
+2022-07-01 16:53:09,811:INFO:Initializing load_model()
+2022-07-01 16:53:09,812:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)

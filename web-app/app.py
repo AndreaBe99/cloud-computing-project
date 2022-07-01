@@ -18,7 +18,7 @@ GBC_MODEL = PATH_MODEL + "cloud_project_gbc_tuned"
 app = Flask(__name__)
 
 # Load Model
-model = load_model("../model/cloud_project")
+model = load_model(GBC_MODEL)
 
 
 @app.route('/')
