@@ -216,3 +216,95 @@
 2022-07-01 12:11:15,955:INFO:Preloading libraries
 2022-07-01 16:53:09,811:INFO:Initializing load_model()
 2022-07-01 16:53:09,812:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 16:56:57,769:INFO:Initializing load_model()
+2022-07-01 16:56:57,769:INFO:load_model(model_name=../model/cloud_project_gbc_tuned, platform=None, authentication=None, verbose=True)
+2022-07-01 16:59:03,969:INFO:Initializing load_model()
+2022-07-01 16:59:03,969:INFO:load_model(model_name=../model/cloud_project_gbc_tuned, platform=None, authentication=None, verbose=True)
+2022-07-01 16:59:29,714:INFO:Initializing predict_model()
+2022-07-01 16:59:29,714:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 16:59:29,714:INFO:Checking exceptions
+2022-07-01 16:59:29,714:INFO:Preloading libraries
+2022-07-01 17:01:25,080:INFO:Initializing load_model()
+2022-07-01 17:01:25,081:INFO:load_model(model_name=../model/cloud_project_rf_tuned, platform=None, authentication=None, verbose=True)
+2022-07-01 17:01:54,207:INFO:Initializing predict_model()
+2022-07-01 17:01:54,207:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 RandomForestClassifier(bootstrap=False, class_weight={},
+                                        criterion='entropy', max_depth=5,
+                                        max_features=1.0,
+                                        min_impurity_decrease=0.0002,
+                                        min_samples_leaf=5,
+                                        min_samples_split=10, n_estimators=150,
+                                        n_jobs=-1, random_state=123)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 17:01:54,207:INFO:Checking exceptions
+2022-07-01 17:01:54,207:INFO:Preloading libraries
+2022-07-01 17:05:23,269:INFO:Initializing load_model()
+2022-07-01 17:05:23,269:INFO:load_model(model_name=../model/cloud_project_rf_tuned, platform=None, authentication=None, verbose=True)
+2022-07-01 17:05:55,131:INFO:Initializing predict_model()
+2022-07-01 17:05:55,131:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 RandomForestClassifier(bootstrap=False, class_weight={},
+                                        criterion='entropy', max_depth=5,
+                                        max_features=1.0,
+                                        min_impurity_decrease=0.0002,
+                                        min_samples_leaf=5,
+                                        min_samples_split=10, n_estimators=150,
+                                        n_jobs=-1, random_state=123)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 17:05:55,131:INFO:Checking exceptions
+2022-07-01 17:05:55,131:INFO:Preloading libraries

@@ -5,20 +5,28 @@ import pickle
 import numpy as np
 from df_manipulation import *
 
-# GLOBAL PATH
-PATH_GITHUB = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/"
-DATASET = PATH_GITHUB + "final_all_season.csv"
+## GLOBAL PATH ##
 
+# GitHub
+# PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
+# Local
+PATH_DATASET = "../datasets/"
+
+DATASET = PATH_DATASET + "final_all_season.csv"
+
+# GitHub
+# PATH_MODEL = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/model/"
 # Local
 PATH_MODEL = "../model/"
+
 RF_MODEL = PATH_MODEL + "cloud_project_rf_tuned"
-GBC_MODEL = PATH_MODEL + "cloud_project_gbc_tuned"
+# GBC_MODEL = PATH_MODEL + "cloud_project_gbc_tuned"    # Need to be re-executed on colab
 
 
 app = Flask(__name__)
 
 # Load Model
-model = load_model(GBC_MODEL)
+model = load_model(RF_MODEL)
 
 
 @app.route('/')
@@ -50,6 +58,9 @@ def dataset_manipulation(df):
     #result between last game of the teams
     df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis=1)
 
+    #col_to_drop = ["Div", "BWH", "BWD", "BWA"]
+    #df.drop(columns=col_to_drop, inplace=True)
+    
     return df
 
 
