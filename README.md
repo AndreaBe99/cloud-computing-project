@@ -17,3 +17,16 @@ Finally, in terms of testing / validating the performance of our cloud service, 
   – Load Users: we want to modify the number of users in order to stress our application, using Locust for the simulation.
   – Model (Time) Performance: The goal is to compare the training times of different Machine Learning algorithms on the same quantity of data. We’ll do tests on the quantity of data used to train the model once we’ve decided on the appropriate approach.
 - Google Cloud Pricing Calculator: we will use this tool to predict the estimated costs necessary for the development of the project.
+
+## Requirement
+Per far girare flask:
+  - avere python3 sulla propia macchina
+  - installarlo con il comando: pip install flask
+  - verificare l'installazione con: python -c "import flask; print(flask.__version__)"
+  - per farlo girare usare il comando 'flask run' oppure 'python nomefile.py' da terminale dopodichè verificare corretta esecuzione all'indirizzo 127.0.0.1:5000/
+
+Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
+  - cartella principale che contiene il file .py
+  - sottocartella chiamata 'templates' che contiene il file html
+  - sottocartella chiamata 'static', in questa cartella devono essere anche le (eventuali) immagini
+    - sottocartella chiamata 'styles' che contiene il file CSS

@@ -5,14 +5,15 @@ import pickle
 import numpy as np
 from df_manipulation import *
 
+# GLOBAL PATH
 PATH_GITHUB = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/"
 DATASET = PATH_GITHUB + "final_all_season.csv"
 
 # Local
 PATH_MODEL = "../model/"
+RF_MODEL = PATH_MODEL + "cloud_project_rf_tuned"
+GBC_MODEL = PATH_MODEL + "cloud_project_gbc_tuned"
 
-RF_MODEL = PATH_MODEL + "cloud_project_rf"
-GBC_MODEL = PATH_MODEL + "cloud_project_gbc"
 
 app = Flask(__name__)
 
@@ -24,7 +25,7 @@ model = load_model("../model/cloud_project")
 def home():
     return render_template('home.html')
 
-
+# Function to create usefull features
 def dataset_manipulation(df):
     # Load Main Dataset
     all_season = pd.read_csv(DATASET, low_memory=False)
