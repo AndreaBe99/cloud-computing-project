@@ -1,20 +1,21 @@
 from flask import Flask,request, url_for, redirect, render_template, jsonify
-from pycaret.regression import *
+from pycaret.classification import *
 import pandas as pd
 import pickle
 import numpy as np
-from df_Manipulation import *
+from df_manipulation import *
 
 PATH = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/final_all_season.csv"
 
 app = Flask(__name__)
 
-# open a file, where you stored the pickled data
-file = open('lr_model.pkl', 'rb')
-# dump information to that file
-model = pickle.load(file)
-# close the file
-file.close()
+# If we not use Pycaret
+# file = open('lr_model.pkl', 'rb')
+# model = pickle.load(file)
+# file.close()
+
+# If we use Pycaret
+model = load_model("../model/cloud_project")
     
 cols = ['season', 'Date', 'HomeTeam', 'AwayTeam', 'B365H', 'B365D', 'B365A']
 
@@ -48,8 +49,26 @@ def dataset_manipulation(df):
 @app.route('/predict',methods=['POST'])
 def predict():
     # Create a dataframe from the HTML form
-    int_features = [x for x in request.form.values()]
-    final = np.array(int_features)
+    # int_features = [x for x in request.form.values()]
+
+    final = []
+    for i, x in enumerate(request.form.values()):
+        if i == 1 or i == 2 or i == 3:
+            final.append(str(x))
+        elif i == 4 or i == 5 or i == 6:
+            final.append(float(x))
+        else:
+            final.append(int(x))
+
+    print("#############################################################")
+    print("Data: ", final)
+    print("#############################################################")
+
+    # For test
+    # final += ["L1", 1.45, 3.60, 4.50]
+    # cols += ['Div', 'BWH', 'BWD', 'BWA']
+
+    #final = np.array(int_features)
     data_unseen = pd.DataFrame([final], columns = cols)
 
     # Add usefull column 
@@ -57,7 +76,7 @@ def predict():
 
     prediction = predict_model(model, data=data_unseen, round = 0)
     prediction = int(prediction.Label[0])
-    return render_template('home.html',pred='Expected Bill will be {}'.format(prediction))
+    return render_template('home.html',pred='Expected Bill will be: {}'.format(prediction))
 
 @app.route('/predict_api',methods=['POST'])
 def predict_api():

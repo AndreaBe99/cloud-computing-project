@@ -1,0 +1,216 @@
+2022-07-01 11:01:16,357:INFO:Initializing load_model()
+2022-07-01 11:01:16,357:INFO:load_model(model_name=cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:01:46,489:INFO:Initializing load_model()
+2022-07-01 11:01:46,489:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:04:29,684:INFO:Initializing load_model()
+2022-07-01 11:04:29,684:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:06:44,536:INFO:Initializing load_model()
+2022-07-01 11:06:44,536:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:07:04,642:INFO:Initializing load_model()
+2022-07-01 11:07:04,642:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:13:23,640:INFO:Initializing load_model()
+2022-07-01 11:13:23,641:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:15:05,935:INFO:Initializing load_model()
+2022-07-01 11:15:05,935:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:17:20,662:INFO:Initializing load_model()
+2022-07-01 11:17:20,662:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:23:42,104:INFO:Initializing load_model()
+2022-07-01 11:23:42,130:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:25:27,176:INFO:Initializing load_model()
+2022-07-01 11:25:27,177:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:28:15,493:INFO:Initializing load_model()
+2022-07-01 11:28:15,493:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:30:20,048:INFO:Initializing load_model()
+2022-07-01 11:30:20,049:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:33:26,583:INFO:Initializing load_model()
+2022-07-01 11:33:26,583:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:35:01,687:INFO:Initializing load_model()
+2022-07-01 11:35:01,687:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:38:53,378:INFO:Initializing load_model()
+2022-07-01 11:38:53,378:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:48:10,166:INFO:Initializing load_model()
+2022-07-01 11:48:10,166:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:49:27,328:INFO:Initializing load_model()
+2022-07-01 11:49:27,328:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:49:55,144:INFO:Initializing predict_model()
+2022-07-01 11:49:55,144:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 11:49:55,144:INFO:Checking exceptions
+2022-07-01 11:49:55,144:INFO:Preloading libraries
+2022-07-01 11:53:11,002:INFO:Initializing load_model()
+2022-07-01 11:53:11,002:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:55:17,732:INFO:Initializing load_model()
+2022-07-01 11:55:17,732:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:55:42,365:INFO:Initializing predict_model()
+2022-07-01 11:55:42,365:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 11:55:42,365:INFO:Checking exceptions
+2022-07-01 11:55:42,365:INFO:Preloading libraries
+2022-07-01 11:59:18,959:INFO:Initializing load_model()
+2022-07-01 11:59:18,959:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 11:59:55,116:INFO:Initializing predict_model()
+2022-07-01 11:59:55,116:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 11:59:55,116:INFO:Checking exceptions
+2022-07-01 11:59:55,116:INFO:Preloading libraries
+2022-07-01 12:02:45,380:INFO:Initializing load_model()
+2022-07-01 12:02:45,380:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 12:03:13,485:INFO:Initializing predict_model()
+2022-07-01 12:03:13,485:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 12:03:13,485:INFO:Checking exceptions
+2022-07-01 12:03:13,485:INFO:Preloading libraries
+2022-07-01 12:04:23,008:INFO:Initializing load_model()
+2022-07-01 12:04:23,008:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 12:04:55,102:INFO:Initializing predict_model()
+2022-07-01 12:04:55,102:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 12:04:55,102:INFO:Checking exceptions
+2022-07-01 12:04:55,102:INFO:Preloading libraries
+2022-07-01 12:06:56,500:INFO:Initializing load_model()
+2022-07-01 12:06:56,502:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 12:10:46,943:INFO:Initializing load_model()
+2022-07-01 12:10:46,970:INFO:load_model(model_name=../model/cloud_project, platform=None, authentication=None, verbose=True)
+2022-07-01 12:11:15,928:INFO:Initializing predict_model()
+2022-07-01 12:11:15,954:INFO:predict_model(estimator=Pipeline(steps=[('dtypes',
+                 DataTypes_Auto_infer(ml_usecase='classification',
+                                      target='FTR')),
+                ('imputer',
+                 Simple_Imputer(categorical_strategy='not_available',
+                                fill_value_categorical=None,
+                                fill_value_numerical=None,
+                                numeric_strategy='mean',
+                                target_variable=None)),
+                ('new_levels1',
+                 New_Catagorical_Levels_in_TestData(replacement_strategy='least '
+                                                                         'frequent',
+                                                    target=...
+                 DFS_Classic(interactions=['multiply'], n_jobs=-1,
+                             random_state=123, subclass='multi', target='FTR',
+                             top_features_to_pick_percentage=None)),
+                ('pca', 'passthrough'),
+                ['trained_model',
+                 GradientBoostingClassifier(learning_rate=0.15, max_depth=7,
+                                            max_features=1.0,
+                                            min_impurity_decrease=0.02,
+                                            min_samples_leaf=5,
+                                            min_samples_split=5,
+                                            n_estimators=230, random_state=123,
+                                            subsample=0.85)]]), probability_threshold=None, encoded_labels=False, drift_report=False, raw_score=False, round=0, verbose=True, ml_usecase=MLUsecase.CLASSIFICATION, display=None, drift_kwargs=None)
+2022-07-01 12:11:15,954:INFO:Checking exceptions
+2022-07-01 12:11:15,955:INFO:Preloading libraries
