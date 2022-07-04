@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Football Match Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style.css') }}">
+
+</head>
+
+<body>
+  <div class="data">
+    
+    <h1>Football Match Prediction</h1>
+
+    <!-- Form to enter new data for predictions  -->
+    <form action="{{ url_for('predict')}}"method="POST">
+      <label for="season">Enter the season:</label><br><br>
+      <input type="number" id="season" name="season" placeholder="2020" required="required" /><br>
+      <label for="match_date">Enter date of the match:</label><br><br>
+      <input type="date" id="match_date" name="match_date" placeholder="20/02/2020" required="required" /><br>
+      <label for="home_team">Enter the name of the home team:</label>
+      <input type="text" id="home_team" name="home_team" placeholder="Roma" required="required" /><br>
+      <label for="away_team">Enter the name of the away team:</label>
+      <input type="text" id="away_team" name="away_team" placeholder="Lazio" required="required" /><br>
+      <label for="b365h">Enter the Bet365 home win odds:</label>
+      <input type="number" id="b365h" step="any" name="b365h" placeholder="1.10" required="required" /><br>
+      <label for="b365d">Enter the Bet365 home draw odds:</label>
+      <input type="number" id="b365d" step="any" name="b365d" placeholder="2.10" required="required" /><br>
+      <label for="b365a">Enter the Bet365 away win odds:</label>
+      <input type="number" id="b365a" step="any" name="b365a" placeholder="4.10" required="required" /><br>
+
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+    </form>
+
+    <div class="pred">
+      {{pred}}
+    </div>
+    
+    <br>
+
+  </div>
+  
+
+</body>
+
+</html>

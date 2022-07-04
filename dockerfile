@@ -15,4 +15,4 @@ RUN pip install -r requirements.txt
 ENV PORT 8080
 
 # Run the application:
-CMD ["python", "web-app/app.py", "--config=config.py"]
+CMD ["gunicorn", "app:app", "--config=config.py"]

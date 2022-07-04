@@ -1,0 +1,7 @@
+pycaret
+Flask
+Jinja2
+gunicorn
+certifi
+itsdangerous
+numpy
