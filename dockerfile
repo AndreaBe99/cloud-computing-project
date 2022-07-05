@@ -11,7 +11,8 @@ ADD . /app
 # Install dependencies
 RUN pip install -r requirements.txt
 
-# Expose port 
+# Expose port
+EXPOSE 5000 
 ENV PORT 8080
 
 # Run the application:
