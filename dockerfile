@@ -12,8 +12,8 @@ ADD . /app
 RUN pip install -r requirements.txt
 
 # Expose port
-# ENV PORT 8080
-EXPOSE 5000
+ENV PORT 8080
+#EXPOSE 5000
 
 # Run the application:
 # CMD ["gunicorn", "app:app", "--config=config.py"]

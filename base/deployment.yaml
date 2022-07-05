@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bet-app
+    env: qa
+  name: bet-app
+  namespace: mlops
+spec:
+  replicas: 2 # Creating two PODs for our app
+  selector:
+    matchLabels:
+      app: bet-app
+  template:
+    metadata:
+      labels:
+        app: bet-app
+        env: qa
+    spec:
+      containers:
+      - image: <DOCKER_IMAGE_NAME> # Docker image name, that we pushed to GCR
+        name: <CONTAINER_NAME>     # POD name 
+        ports:
+        - containerPort: 5000
+          protocol: TCP
