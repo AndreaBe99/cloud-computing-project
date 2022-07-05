@@ -8,19 +8,18 @@ from df_manipulation import *
 ## GLOBAL PATH ##
 
 # GitHub
-# PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
+PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
 # Local
-PATH_DATASET = "/datasets/"
+# PATH_DATASET = "/datasets/"
 
 DATASET = PATH_DATASET + "final_all_season.csv"
 
 # GitHub
 # PATH_MODEL = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/model/"
 # Local
-PATH_MODEL = "/model/"
-
-RF_MODEL = PATH_MODEL + "cloud_project_rf_tuned"
-# GBC_MODEL = PATH_MODEL + "cloud_project_gbc_tuned"    # Need to be re-executed on colab
+# PATH_MODEL = "/model/"
+RF_MODEL = "cloud_project_rf_tuned"
+# RF_MODEL = PATH_MODEL + "cloud_project_rf_tuned"
 
 
 app = Flask(__name__)
@@ -78,9 +77,9 @@ def predict():
         else:
             final.append(int(x))
 
-    print("#############################################################")
-    print("Data: ", final)
-    print("#############################################################")
+    # print("#############################################################")
+    # print("Data: ", final)
+    # print("#############################################################")
 
     cols = ['season', 'Date', 'HomeTeam',
             'AwayTeam', 'B365H', 'B365D', 'B365A']
