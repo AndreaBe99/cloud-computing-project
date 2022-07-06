@@ -41,11 +41,10 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 3. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
     - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
     - `cd cloud-computing-project`
-    - `export PROJECT_ID=project-footbal-bet`  (qui inserire l'id del proprio progetto)
+    - `export PROJECT_ID=bet-football-project`  (qui inserire l'id del proprio progetto)
     - `gcloud config set project $PROJECT_ID`
     - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
     - `docker images`
-    - `gcloud auth configure-docker`
     - `gcloud services enable containerregistry.googleapis.com` 
     - `docker push gcr.io/${PROJECT_ID}/bet-app:v1`
     - `gcloud config set compute/zone europe-west8-a`

@@ -1,19 +1,25 @@
-from flask import Flask, request, url_for, redirect, render_template, jsonify
-import jinja2
-from pycaret.classification import *
-import pandas as pd
-from df_manipulation import *
 import os
+import jinja2
+import pandas as pd
+
+from flask import Flask, request, url_for, redirect, render_template, jsonify
+from pycaret.classification import *
+from df_manipulation import *
+import config
+
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
 # Function to create usefull features
+
+
 def dataset_manipulation(df):
     # Load Main Dataset
     all_season = pd.read_csv(config.DATASET, low_memory=False)
@@ -22,12 +28,8 @@ def dataset_manipulation(df):
     df['Date'] = pd.to_datetime(df.Date)
     all_season['Date'] = pd.to_datetime(all_season.Date)
 
-    cols = ['_rank', '_ls_rank', '_days_ls_match', '_points',
-            '_l_points', '_l_wavg_points', '_goals', '_l_goals', '_l_wavg_goals',
-            '_goals_sf', '_l_goals_sf', '_l_wavg_goals_sf', '_wins', '_draws',
-            '_losses', '_win_streak', '_loss_streak', '_draw_streak']
-    ht_cols = ['ht' + col for col in cols]
-    at_cols = ['at' + col for col in cols]
+    ht_cols = ['ht' + col for col in config.COLS_DF]
+    at_cols = ['at' + col for col in config.COLS_DF]
 
     #gets main cols for home and away team
     df[ht_cols] = pd.DataFrame(df.apply(lambda x: create_main_cols(
@@ -37,7 +39,7 @@ def dataset_manipulation(df):
 
     #result between last game of the teams
     df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis=1)
-    
+
     return df
 
 
@@ -46,7 +48,7 @@ def predict():
 
     # Load Model
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
-        'project': 'cloud-355408', 'bucket': 'cloud-computing-bucket-model'})
+        'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
     # Create a dataframe from the HTML form
     # int_features = [x for x in request.form.values()]
@@ -64,10 +66,7 @@ def predict():
     # print("Data: ", final)
     # print("#############################################################")
 
-    cols = ['season', 'Date', 'HomeTeam',
-            'AwayTeam', 'B365H', 'B365D', 'B365A']
-
-    data_unseen = pd.DataFrame([final], columns=cols)
+    data_unseen = pd.DataFrame([final], columns=config.COLS_URL)
 
     # Add usefull column
     data_unseen = dataset_manipulation(data_unseen)
