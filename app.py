@@ -6,7 +6,7 @@ from flask import Flask, request, url_for, redirect, render_template, jsonify
 from pycaret.classification import *
 from df_manipulation import *
 import config
-
+from datetime import datetime, date
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
@@ -51,16 +51,49 @@ def predict():
         'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
     # Create a dataframe from the HTML form
-    # int_features = [x for x in request.form.values()]
+    match_date = str(request.form['match_date'])
+    home_team = str(request.form['home_team'])
+    away_team = str(request.form['away_team'])
 
-    final = []
-    for i, x in enumerate(request.form.values()):
-        if i == 1 or i == 2 or i == 3:
-            final.append(str(x))
-        elif i == 4 or i == 5 or i == 6:
-            final.append(float(x))
-        else:
-            final.append(int(x))
+    error = None
+
+    # Check Missing Value
+    if not match_date or not match_date.strip():
+        error = 'Match Date is missing'
+    if not home_team or not home_team.strip():
+        error = 'Home Team is missing'
+    if not away_team or not away_team.strip():
+        error = 'Away Team is missing'
+    
+    if error:
+        return render_template('home.html', error=error, match_date=match_date, home_team=home_team, away_team=away_team)
+
+    # Check Date
+    datetime_object = datetime.strptime(match_date, '%y-%m-%d').date()
+    today = date.today()
+    if datetime_object < today:
+        error = 'The date you selected is in the past'
+    
+    # Check Teams
+    all_season = pd.read_csv(config.DATASET, low_memory=False)
+    if home_team not in all_season.HomeTeam.unique() and home_team not in all_season.AwayTeam.unique():
+        error = 'The home team you selected is not in the dataset'
+    if away_team not in all_season.HomeTeam.unique() and away_team not in all_season.AwayTeam.unique():
+        error = 'The away team you selected is not in the dataset'
+    
+    if error:
+        return render_template('home.html', error=error, match_date=match_date, home_team=home_team, away_team=away_team)
+
+    # Calculate the season
+    # - if month >  6 --> season = year
+    # - if month <= 6 --> season = year - 1
+    season = None
+    if datetime_object.month > 6:
+        season = datetime_object.year
+    elif datetime_object.month <= 6:
+        season = datetime_object.year - 1
+
+    final = [season, match_date, home_team, away_team]
 
     # print("#############################################################")
     # print("Data: ", final)

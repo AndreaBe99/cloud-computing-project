@@ -23,8 +23,7 @@ COLS_DF = ['_rank', '_ls_rank', '_days_ls_match', '_points',
         '_goals_sf', '_l_goals_sf', '_l_wavg_goals_sf', '_wins', '_draws',
         '_losses', '_win_streak', '_loss_streak', '_draw_streak']
 
-COLS_URL = ['season', 'Date', 'HomeTeam',
-        'AwayTeam', 'B365H', 'B365D', 'B365A']
+COLS_URL = ['season', 'Date', 'HomeTeam', 'AwayTeam']
 
 # Gunicorn config
 bind = ":" + str(PORT)
