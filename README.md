@@ -53,4 +53,4 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
     - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
     - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`
     - `kubectl get pods`
-    - `kubectl get service` (ottenere l'external IP per raggiungere il sito tramite http://EXTERNAL_IP:80)
+    - `kubectl get service` (ottenere l'external IP per raggiungere il sito tramite http://EXTERNAL_IP:80, now is http://34.154.105.150:80)
