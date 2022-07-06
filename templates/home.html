@@ -14,16 +14,39 @@
 
 <body>
 
-        {% if pred == 1 %}
-        <div class="pred-msg"> {{ home_team }} will most likely win!!</div><br><br>
-        {% endif %}
-        {% if pred == 2 %}
-        <div class="pred-msg"> {{ away_team }} will most likely win!!</div><br><br>
-        {% endif %}
-        {% if pred == 0 %}
-        <div class="pred-msg"> Most likely {{ home_team }} and {{ away_team }} will darw!</div><br><br>
-        {% endif %}
-
+  {% if pred == 1 %}
+  <div class="pred-msg" id="pred" onclick="off()"> 
+    <div class="team-logo">
+      <img id="team_home" src={{ image_home_path }} alt="HomeTeam" width="300" height="300">
+      <img id="team_away" src={{ image_away_path }} alt="AwayTeam" width="300" height="300">
+    </div>
+    <div id="text">
+      <p class="team">{{ home_team }}</p> will most likely win!!
+    </div>
+  </div>
+  {% endif %}
+  {% if pred == 2 %}
+  <div class="pred-msg" id="pred" onclick="off()"> 
+    <div class="team-logo">
+      <img id="team_home" src={{ image_home_path }} alt="HomeTeam" width="300" height="300">
+      <img id="team_away" src={{ image_away_path }} alt="AwayTeam" width="300" height="300">
+    </div>
+    <div id="text">
+      <p class="team">{{ away_team }}</p> will most likely win!!
+    </div>
+  </div>
+  {% endif %}
+  {% if pred == 0 %}
+  <div class="pred-msg" id="pred" onclick="off()"> 
+    <div class="team-logo">
+      <img id="team_home" src={{ image_home_path }} alt="HomeTeam" width="300" height="300">
+      <img id="team_away" src={{ image_away_path }} alt="AwayTeam" width="300" height="300">
+    </div>
+    <div id="text">
+      Most likely <p class="team">{{ home_team }}</p> and <p class="team">{{ away_team }}</p> will darw!
+    </div>
+  </div>
+  {% endif %}
 
   <div class="data">
     
@@ -50,6 +73,13 @@
 
   </div>
   
+  <script>
+    function off() {
+      document.getElementById("pred").style.display = "none";
+    }
+
+    
+  </script>
 
 </body>
 

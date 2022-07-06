@@ -96,10 +96,13 @@ def predict():
 
     print(final)
 
+    image_home_path = "static/image/team-logo/"+home_team+".png"
+    image_away_path = "static/image/team-logo/"+away_team+".png"
+
     # Test
     prediction = 1 
     if prediction:
-        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team)
+        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team, image_home_path=image_home_path, image_away_path=image_away_path)
     else:
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 

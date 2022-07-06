@@ -71,7 +71,7 @@ def predict():
     datetime_object = datetime.strptime(match_date, '%Y-%m-%d').date()
     today = date.today()
     if datetime_object < today:
-        error = 'The date you selected is in the past!'
+        error = 'The date you selected is in the past'
 
     # Check Teams
     all_season = pd.read_csv(config.DATASET, low_memory=False)
@@ -94,6 +94,10 @@ def predict():
 
     final = [season, match_date, home_team, away_team]
 
+    # Teams Logo
+    image_home_path = "static/image/team-logo/"+home_team+".png"
+    image_away_path = "static/image/team-logo/"+away_team+".png"
+
     data_unseen = pd.DataFrame([final], columns=config.COLS_URL)
 
     # Add usefull column
@@ -104,7 +108,7 @@ def predict():
     prediction = int(prediction.Label[0])
 
     if prediction:
-        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team)
+        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team, image_home_path=image_home_path, image_away_path=image_away_path)
     else:
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
