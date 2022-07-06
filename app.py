@@ -1,32 +1,13 @@
 from flask import Flask, request, url_for, redirect, render_template, jsonify
+import jinja2
 from pycaret.classification import *
 import pandas as pd
-import pickle
-import numpy as np
 from df_manipulation import *
+import os
 
-## GLOBAL PATH ##
-
-# GitHub
-PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
-# Local
-# PATH_DATASET = "/datasets/"
-
-DATASET = PATH_DATASET + "final_all_season.csv"
-
-# GitHub
-# PATH_MODEL = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/model/"
-# Local
-# PATH_MODEL = "/model/"
-RF_MODEL = "cloud_project_rf_tuned"
-# RF_MODEL = PATH_MODEL + "cloud_project_rf_tuned"
-
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
 app = Flask(__name__)
-
-# Load Model
-model = load_model(RF_MODEL)
-
 
 @app.route('/')
 def home():
@@ -35,7 +16,7 @@ def home():
 # Function to create usefull features
 def dataset_manipulation(df):
     # Load Main Dataset
-    all_season = pd.read_csv(DATASET, low_memory=False)
+    all_season = pd.read_csv(config.DATASET, low_memory=False)
 
     # Convert Date Column to Datetime
     df['Date'] = pd.to_datetime(df.Date)
@@ -56,15 +37,17 @@ def dataset_manipulation(df):
 
     #result between last game of the teams
     df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis=1)
-
-    #col_to_drop = ["Div", "BWH", "BWD", "BWA"]
-    #df.drop(columns=col_to_drop, inplace=True)
     
     return df
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
+
+    # Load Model
+    model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
+        'project': 'cloud-355408', 'bucket': 'cloud-computing-bucket-model'})
+
     # Create a dataframe from the HTML form
     # int_features = [x for x in request.form.values()]
 
@@ -83,11 +66,7 @@ def predict():
 
     cols = ['season', 'Date', 'HomeTeam',
             'AwayTeam', 'B365H', 'B365D', 'B365A']
-    # For test
-    # final += ["L1", 1.45, 3.60, 4.50]
-    # cols += ['Div', 'BWH', 'BWD', 'BWA']
 
-    #final = np.array(int_features)
     data_unseen = pd.DataFrame([final], columns=cols)
 
     # Add usefull column
@@ -101,15 +80,6 @@ def predict():
         return render_template('home.html', pred='The Predicted Winner is {}'.format(final[2]))
     else:
         return render_template('home.html', pred='The Predicted Result is a DRAW')
-
-
-@app.route('/predict_api', methods=['POST'])
-def predict_api():
-    data = request.get_json(force=True)
-    data_unseen = pd.DataFrame([data])
-    prediction = predict_model(model, data=data_unseen)
-    output = prediction.Label[0]
-    return jsonify(output)
 
 
 if __name__ == '__main__':
