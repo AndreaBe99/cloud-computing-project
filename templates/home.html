@@ -13,39 +13,38 @@
 </head>
 
 <body>
+
+        {% if pred == 1 %}
+        <div class="pred-msg"> {{ home_team }} will most likely win!!</div><br><br>
+        {% endif %}
+        {% if pred == 2 %}
+        <div class="pred-msg"> {{ away_team }} will most likely win!!</div><br><br>
+        {% endif %}
+        {% if pred == 0 %}
+        <div class="pred-msg"> Most likely {{ home_team }} and {{ away_team }} will darw!</div><br><br>
+        {% endif %}
+
+
   <div class="data">
     
     <h1>Football Match Prediction</h1>
 
 
     {% if error %}
-    <div class="error-msg">{{ error }}</div>
+      <div class="error-msg">{{ error }}</div><br><br>
     {% endif %}
 
     <!-- Form to enter new data for predictions  -->
     <form action="{{ url_for('predict')}}"method="POST" onsubmit="return validateForm()">
-      <label for="match_date">Enter date of the match:</label><br><br>
-      <input type="date" id="match_date" name="match_date" placeholder="20/02/2020" required="required" value="{{ match_date }}" /><br>
+      <label for="match_date">Enter date of the match:</label>
+      <input type="date" id="match_date" name="match_date" placeholder="20/02/2020" required="required" value="{{ match_date }}" /><br><br>
       <label for="home_team">Enter the name of the home team:</label>
-      <input type="text" id="home_team" name="home_team" placeholder="Roma" required="required" value="{{ home_team }}" /><br>
+      <input type="text" id="home_team" name="home_team" placeholder="Roma" required="required" value="{{ home_team }}" /><br><br>
       <label for="away_team">Enter the name of the away team:</label>
-      <input type="text" id="away_team" name="away_team" placeholder="Lazio" required="required" value="{{ away_team }}"/><br>
-      
-      <!-- 
-      <label for="b365h">Enter the Bet365 home win odds:</label>
-      <input type="number" id="b365h" step="any" name="b365h" placeholder="1.10" required="required" /><br>
-      <label for="b365d">Enter the Bet365 home draw odds:</label>
-      <input type="number" id="b365d" step="any" name="b365d" placeholder="2.10" required="required" /><br>
-      <label for="b365a">Enter the Bet365 away win odds:</label>
-      <input type="number" id="b365a" step="any" name="b365a" placeholder="4.10" required="required" /><br>
-      -->
+      <input type="text" id="away_team" name="away_team" placeholder="Lazio" required="required" value="{{ away_team }}"/><br><br><br>
 
       <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
     </form>
-
-    <div class="pred">
-      {{pred}}
-    </div>
     
     <br>
 

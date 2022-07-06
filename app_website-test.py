@@ -47,7 +47,7 @@ def dataset_manipulation(df):
 def predict():
 
     # Load Model
-    model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
+    # model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
     # Create a dataframe from the HTML form
     match_date = str(request.form['match_date'])
@@ -63,7 +63,7 @@ def predict():
         error = 'Home Team is missing!'
     if not away_team or not away_team.strip():
         error = 'Away Team is missing!'
-
+    
     if error:
         return render_template('home.html', error="Ops! "+error, match_date=match_date, home_team=home_team, away_team=away_team)
 
@@ -71,15 +71,15 @@ def predict():
     datetime_object = datetime.strptime(match_date, '%Y-%m-%d').date()
     today = date.today()
     if datetime_object < today:
-        error = 'The date you selected is in the past!'
-
+        error = 'The date you selected is in the past'
+    
     # Check Teams
     all_season = pd.read_csv(config.DATASET, low_memory=False)
     if home_team not in all_season.HomeTeam.unique() and home_team not in all_season.AwayTeam.unique():
         error = 'The home team you selected is not in the dataset!'
     if away_team not in all_season.HomeTeam.unique() and away_team not in all_season.AwayTeam.unique():
         error = 'The away team you selected is not in the dataset!'
-
+    
     if error:
         return render_template('home.html', error="Ops! "+error, match_date=match_date, home_team=home_team, away_team=away_team)
 
@@ -94,6 +94,19 @@ def predict():
 
     final = [season, match_date, home_team, away_team]
 
+    print(final)
+
+    # Test
+    prediction = 1 
+    if prediction:
+        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team)
+    else:
+        return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
+
+    # print("#############################################################")
+    # print("Data: ", final)
+    # print("#############################################################")
+
     data_unseen = pd.DataFrame([final], columns=config.COLS_URL)
 
     # Add usefull column
@@ -104,7 +117,7 @@ def predict():
     prediction = int(prediction.Label[0])
 
     if prediction:
-        return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team)
+        return render_template('home.html', pred=str(prediction))
     else:
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
