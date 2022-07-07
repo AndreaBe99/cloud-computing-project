@@ -56,10 +56,18 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
     - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
     - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`
     - `kubectl get pods`
-    - `kubectl get service` (ottenere l'external IP per raggiungere il sito tramite http://EXTERNAL_IP:80, now is http://34.154.105.150:80)
+    - `kubectl get service` (get EXTERNAL_IP and go to http://EXTERNAL_IP:80, in my case http://34.154.105.150:80)
 
 4. Test:
     - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
     - `gcloud beta container --project ${PROJECT_ID} clusters create loadtesting --zone europe-west8-a --cluster-version 1.21.12-gke.1500 --image-type COS --disk-size 10 --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 1 --network default --no-enable-cloud-logging --subnetwork default --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
-
     - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
+    - `kubectl create -f loadtest-deployment.yaml`
+    - `kubectl get svc locust-master` (get EXTERNAL_IP and go to http://EXTERNAL_IP:8089,  in my case http://34.154.67.64:8089)
+    - `cd ..`
+    - `git clone https://github.com/GoogleCloudPlatform/distributed-load-testing-using-kubernetes`
+    - `cd distributed-load-testing-using-kubernetes`
+    - `gcloud builds submit --tag gcr.io/${PROJECT_ID}/locust-tasks:latest docker-image/.` 
+    - `cd ..`
+    - `cd cloud-computing-project`
+    - `kubectl create -f loadtest-deployment.yaml`
