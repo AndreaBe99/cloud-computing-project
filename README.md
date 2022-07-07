@@ -60,14 +60,22 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 
 4. Test:
     - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
-    - `gcloud beta container --project ${PROJECT_ID} clusters create loadtesting --zone europe-west8-a --cluster-version 1.21.12-gke.1500 --image-type COS --disk-size 10 --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 1 --network default --no-enable-cloud-logging --subnetwork default --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
-    - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
-    - `kubectl create -f loadtest-deployment.yaml`
-    - `kubectl get svc locust-master` (get EXTERNAL_IP and go to http://EXTERNAL_IP:8089,  in my case http://34.154.239.33:8089)
-    - `cd ..`
+
+    - `gcloud services enable \cloudbuild.googleapis.com \ compute.googleapis.com \ container.googleapis.com \ containeranalysis.googleapis.com \ containerregistry.googleapis.com`
     - `git clone https://github.com/GoogleCloudPlatform/distributed-load-testing-using-kubernetes`
     - `cd distributed-load-testing-using-kubernetes`
     - `gcloud builds submit --tag gcr.io/${PROJECT_ID}/locust-tasks:latest docker-image/.` 
-    - `cd ..`
-    - `cd cloud-computing-project`
-    - `kubectl create -f loadtest-deployment.yaml`
+    - `PROJECT=$(gcloud config get-value project)`
+    - `REGION=europe-west8-a`
+    - `ZONE=${REGION}-c`
+    - `CLUSTER=football-bet-cluste`
+    - `TARGET=http://34.154.239.33:80`
+    - `gcloud config set compute/region $REGION` 
+    - `gcloud config set compute/zone $ZONE`
+    - `gcloud container images list` (update yaml file with docker image name and EXTERNAL_IP)
+    - (Provare a fare kubectl apply con il file loadtest-deployment.yaml copiandolo nella directory distributed-load-testing-using-kubernetes, controllare che IP e docker images nel file siano corretti)
+    - `kubectl apply -f kubernetes-config/locust-master-controller.yaml`
+    - `kubectl apply -f kubernetes-config/locust-master-service.yaml`
+    - `kubectl apply -f kubernetes-config/locust-worker-controller.yaml`
+    - `kubectl get pods`
+    - `EXTERNAL_IP=10.198.0.11`
