@@ -34,21 +34,24 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 ## Lista Comandi GCP
 1. Creare un progetto su google cloud
 
-2. Eseguire il comando `gcloud auth configure-docker` per ottenere le credenziali e su GCP nella sezione `API e servizi --> Credenziali --> Account di Servizio` cliccare sull'email. Dalla schermata che si apre andare in `Chiavi --> Aggiungi Chiave --> Crea Chiave --> Json`
+2. Eseguire i comandi: 
+    - `export PROJECT_ID=bet-football-project`  (qui inserire l'id del proprio progetto)
+    - `gcloud config set project $PROJECT_ID`
+    - `gcloud auth configure-docker`
+    - `gcloud services enable containerregistry.googleapis.com` 
+    - `gcloud services enable container.googleapis.com`
+   
+   per ottenere le credenziali e su GCP nella sezione `API e servizi --> Credenziali --> Account di Servizio` cliccare sull'email. Dalla schermata che si apre andare in `Chiavi --> Aggiungi Chiave --> Crea Chiave --> Json`
 
 2. Eseguire il notebook su colab per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
 
 3. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
     - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
     - `cd cloud-computing-project`
-    - `export PROJECT_ID=bet-football-project`  (qui inserire l'id del proprio progetto)
-    - `gcloud config set project $PROJECT_ID`
     - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
     - `docker images`
-    - `gcloud services enable containerregistry.googleapis.com` 
     - `docker push gcr.io/${PROJECT_ID}/bet-app:v1`
     - `gcloud config set compute/zone europe-west8-a`
-    - `gcloud services enable container.googleapis.com`
     - `gcloud container clusters create football-bet-cluster --num-nodes=2`
     - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
     - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`
