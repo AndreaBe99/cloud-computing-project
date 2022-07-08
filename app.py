@@ -1,7 +1,7 @@
 import os
 import jinja2
 import pandas as pd
-
+import random
 from flask import Flask, request, url_for, redirect, render_template, jsonify
 from pycaret.classification import *
 from df_manipulation import *
@@ -41,6 +41,7 @@ def dataset_manipulation(df):
     df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis=1)
 
     return df
+
 
 
 @app.route('/predict', methods=['POST'])
@@ -112,6 +113,53 @@ def predict():
     else:
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
+
+@app.route('/predict_test')
+def predict_api():
+
+    # Load Model
+    model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
+                    'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
+
+    # Create a dataframe from the HTML form
+    # Get tomorrow's date
+    match_date = datetime.date.today() + datetime.timedelta(days=1)
+    all_season = pd.read_csv(config.DATASET, low_memory=False)
+
+    # Check Teams
+    r = random.randint(0, all_season.HomeTeam.nunique() - 1)
+    home_team = all_season.HomeTeam.unique()[r]
+
+    all_away_team = all_season.AwayTeam.unique()
+    all_away_team = all_away_team[all_away_team != home_team]
+    r = random.randint(0, len(all_away_team) - 1)
+    away_team = all_away_team[r]
+
+    # Calculate the season
+    # - if month >  6 --> season = year
+    # - if month <= 6 --> season = year - 1
+    season = None
+    if match_date.month > 6:
+        season = match_date.year
+    elif match_date.month <= 6:
+        season = match_date.year - 1
+
+    final = [season, match_date, home_team, away_team]
+
+    # Teams Logo
+    image_home_path = "static/image/team-logo/"+home_team+".png"
+    image_away_path = "static/image/team-logo/"+away_team+".png"
+
+    data_unseen = pd.DataFrame([final], columns=config.COLS_URL)
+
+    # Add usefull column
+    data_unseen = dataset_manipulation(data_unseen)
+
+    prediction = None
+    prediction = predict_model(model, data=data_unseen, round=0)
+    prediction = int(prediction.Label[0])
+    
+    return jsonify(prediction)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
