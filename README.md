@@ -64,18 +64,11 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
     - `gcloud services enable \cloudbuild.googleapis.com \ compute.googleapis.com \ container.googleapis.com \ containeranalysis.googleapis.com \ containerregistry.googleapis.com`
     - `git clone https://github.com/GoogleCloudPlatform/distributed-load-testing-using-kubernetes`
     - `cd distributed-load-testing-using-kubernetes`
+    - Rename `.yaml.tpl` file in `.yaml`, and delete from `locust-master-service.yaml` rows 39 and 40.
     - `gcloud builds submit --tag gcr.io/${PROJECT_ID}/locust-tasks:latest docker-image/.` 
-    - `PROJECT=$(gcloud config get-value project)`
-    - `REGION=europe-west8-a`
-    - `ZONE=${REGION}-c`
-    - `CLUSTER=football-bet-cluste`
-    - `TARGET=http://34.154.239.33:80`
-    - `gcloud config set compute/region $REGION` 
-    - `gcloud config set compute/zone $ZONE`
     - `gcloud container images list` (update yaml file with docker image name and EXTERNAL_IP)
-    - (Provare a fare kubectl apply con il file loadtest-deployment.yaml copiandolo nella directory distributed-load-testing-using-kubernetes, controllare che IP e docker images nel file siano corretti)
     - `kubectl apply -f kubernetes-config/locust-master-controller.yaml`
     - `kubectl apply -f kubernetes-config/locust-master-service.yaml`
     - `kubectl apply -f kubernetes-config/locust-worker-controller.yaml`
     - `kubectl get pods`
-    - `EXTERNAL_IP=10.198.0.11`
+    - `kubectl get service` (get EXTERNAL_IP of `locust-master-web ` and go to http://EXTERNAL_IP:8089, in my case http://34.154.239.33:8089)
