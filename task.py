@@ -15,7 +15,7 @@
 # limitations under the License.
 from typing import final
 
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, date
 from locust import FastHttpUser, TaskSet, task
 
 import pandas as pd
@@ -36,7 +36,7 @@ class MetricsTaskSet(TaskSet):
     def on_start(self):
         # Create a dataframe from the HTML form
         # Get tomorrow's date
-        self._match_date = datetime.now() + timedelta(days=1)
+        self._match_date = date.today() + timedelta(days=1)
         all_season = pd.read_csv(DATASET, low_memory=False)
 
         # Check Teams

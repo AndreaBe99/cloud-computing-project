@@ -1,17 +1,11 @@
 import pandas as pd
 import config
 import random
+from datetime import timedelta, datetime, date
 
-# Check Teams
-all_season = pd.read_csv(config.DATASET, low_memory=False)
+#datetime.now() + timedelta(days=1)
 
-r = random.randint(0, all_season.HomeTeam.nunique() - 1)
-home_team = all_season.HomeTeam.unique()[r]
-
-all_away_team = all_season.AwayTeam.unique()
-all_away_team = all_away_team[all_away_team != home_team]
-
-r = random.randint(0, len(all_away_team) - 1)
-away_team = all_away_team[r]
-
-print(home_team, away_team)
+today = date.today()
+tomorrow = today + timedelta(days=1)
+#datetime_object = datetime.strptime(match_date, '%Y-%m-%d').date()
+print(today, tomorrow)
