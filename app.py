@@ -129,6 +129,7 @@ def predict_test():
     # - if month >  6 --> season = year
     # - if month <= 6 --> season = year - 1
     season = None
+    match_date = datetime.strptime(match_date, '%Y-%m-%d').date()
     if match_date.month > 6:
         season = match_date.year
     elif match_date.month <= 6:
