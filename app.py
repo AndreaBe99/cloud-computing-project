@@ -114,26 +114,16 @@ def predict():
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
 
-@app.route('/predict_test')
+@app.route('/predict_test',  methods=['GET', 'POST'])
 def predict_api():
 
     # Load Model
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
-    # Create a dataframe from the HTML form
-    # Get tomorrow's date
-    match_date = datetime.date.today() + datetime.timedelta(days=1)
-    all_season = pd.read_csv(config.DATASET, low_memory=False)
-
-    # Check Teams
-    r = random.randint(0, all_season.HomeTeam.nunique() - 1)
-    home_team = all_season.HomeTeam.unique()[r]
-
-    all_away_team = all_season.AwayTeam.unique()
-    all_away_team = all_away_team[all_away_team != home_team]
-    r = random.randint(0, len(all_away_team) - 1)
-    away_team = all_away_team[r]
+    match_date = request.values.get('match_date')
+    home_team = request.values.get('home_team')
+    away_team = request.values.get('away_team')
 
     # Calculate the season
     # - if month >  6 --> season = year
@@ -146,10 +136,6 @@ def predict_api():
 
     final = [season, match_date, home_team, away_team]
 
-    # Teams Logo
-    image_home_path = "static/image/team-logo/"+home_team+".png"
-    image_away_path = "static/image/team-logo/"+away_team+".png"
-
     data_unseen = pd.DataFrame([final], columns=config.COLS_URL)
 
     # Add usefull column
@@ -158,8 +144,9 @@ def predict_api():
     prediction = None
     prediction = predict_model(model, data=data_unseen, round=0)
     prediction = int(prediction.Label[0])
-    
-    return jsonify(prediction)
+
+    # return jsonify(prediction)
+    return '/predict_test - season: {}, match_date: {}, home_team: {}, away_team: {}, prediction: {}\n'.format(season, match_date, home_team, away_team, prediction)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)

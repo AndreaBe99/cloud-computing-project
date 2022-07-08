@@ -43,9 +43,9 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
    
    per ottenere le credenziali e su GCP nella sezione `API e servizi --> Credenziali --> Account di Servizio` cliccare sull'email. Dalla schermata che si apre andare in `Chiavi --> Aggiungi Chiave --> Crea Chiave --> Json`
 
-2. Eseguire il notebook su colab per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
+3. Eseguire il notebook su colab per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
 
-3. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
+4. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
     - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
     - `cd cloud-computing-project`
     - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
@@ -58,13 +58,17 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
     - `kubectl get pods`
     - `kubectl get service` (get EXTERNAL_IP and go to http://EXTERNAL_IP:80, in my case http://34.154.239.33:80)
 
-4. Test:
+5. Test:
     - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
 
     - `gcloud services enable \cloudbuild.googleapis.com \ compute.googleapis.com \ container.googleapis.com \ containeranalysis.googleapis.com \ containerregistry.googleapis.com`
     - `git clone https://github.com/GoogleCloudPlatform/distributed-load-testing-using-kubernetes`
     - `cd distributed-load-testing-using-kubernetes`
-    - Rename `.yaml.tpl` file in `.yaml`, and delete from `locust-master-service.yaml` rows 39 and 40.
+    - Rename `.yaml.tpl` file in `.yaml`, and delete from `locust-master-service.yaml` rows 39 and 40, and add `pandas` to `requirements.txt`, and copy and paste `task.py`.
+    - `REGION=europe-west8`
+    - `ZONE=${REGION}-a`
+    - `CLUSTER=football-bet-cluster`
+    - `TARGET=http://34.154.239.33:80`
     - `gcloud builds submit --tag gcr.io/${PROJECT_ID}/locust-tasks:latest docker-image/.` 
     - `gcloud container images list` (update yaml file with docker image name and EXTERNAL_IP)
     - `kubectl apply -f kubernetes-config/locust-master-controller.yaml`
