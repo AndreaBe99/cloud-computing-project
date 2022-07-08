@@ -49,9 +49,9 @@ class MetricsTaskSet(TaskSet):
         self._away_team = all_away_team[r]
         
     @task(1)
-    def predict(self):
+    def predict_test(self):
         self.client.post(
-            '/predict', {"match_date": self._match_date, "home_team": self._home_team, "away_team": self._away_team})
+            '/predict_test', {"match_date": self._match_date, "home_team": self._home_team, "away_team": self._away_team})
 
 class MetricsLocust(FastHttpUser):
     tasks = {MetricsTaskSet}

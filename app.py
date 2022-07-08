@@ -115,7 +115,7 @@ def predict():
 
 
 @app.route('/predict_test',  methods=['GET', 'POST'])
-def predict_api():
+def predict_test():
 
     # Load Model
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
