@@ -6,9 +6,12 @@ DEBUG_MODE = int(env.get("DEBUG_MODE", 1))
 
 # GCP Credentials
 GOOGLE_APPLICATION_CREDENTIALS = 'bet-football-project-79330c05ae06.json'
+# GOOGLE_APPLICATION_CREDENTIALS = 'cloud-computing-bet-football-fa0da80244d1.json'
 
 PROJECT_NAME = "bet-football-project"
+# PROJECT_NAME = "cloud-computing-bet-football"           
 BUCKET_NAME = "bet-football-project-bucket-model"
+# BUCKET_NAME = PROJECT_NAME + '-bucket-model'
 
 # Dataset Github Path
 PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
