@@ -94,3 +94,8 @@ METODO DEL TUTORIAL CON DUE CLUSTER:
     - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
     - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
     - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (EXTERNAL_IP=http://34.139.102.238:80, wait some minute)
+
+
+
+    - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone europe-west8-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
+    - `gcloud container clusters get-credentials loadtesting --zone us-east1-b --project ${PROJECT_ID}`
