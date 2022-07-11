@@ -125,6 +125,8 @@ def predict_test():
     home_team = request.values.get('home_team')
     away_team = request.values.get('away_team')
 
+    print(match_date, home_team, away_team)
+
     # Calculate the season
     # - if month >  6 --> season = year
     # - if month <= 6 --> season = year - 1
