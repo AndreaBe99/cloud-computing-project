@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/bet-football-project/locust-tasks
+          image: gcr.io/${PROJECT_ID}/locust-task
           env:
             - name: LOCUST_MODE
               value: master
@@ -55,7 +55,7 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/bet-football-project/locust-tasks
+          image: gcr.io/${PROJECT_ID}/locust-task
           env:
             - name: LOCUST_MODE
               value: worker

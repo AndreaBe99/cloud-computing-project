@@ -98,7 +98,10 @@ METODO DEL TUTORIAL CON DUE CLUSTER:
 
 
     - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone europe-west8-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
-    - `gcloud container clusters get-credentials loadtesting --zone us-east1-b --project ${PROJECT_ID}`
-    - `docker pull corelab/locust-tasks:latest`
-    - `cd cloud-computing-project/`
+    - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
+    - `cd locust`
+    - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
+    - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
+    - `docker images`
+    - Modificare IP nel file `loadtest-deployment.yaml`.
     - `kubectl create -f loadtest-deployment.yaml`
