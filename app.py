@@ -122,6 +122,9 @@ def predict_test():
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
     # TEST
+    data_data = request.data["match_date"]
+    logging.info("data: %s", data_data)
+    print("data:", data_data)
     form_data = request.form["match_date"]
     logging.info("form: %s", form_data)
     print("form:", form_data)
