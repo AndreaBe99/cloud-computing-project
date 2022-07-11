@@ -50,8 +50,13 @@ class MetricsTaskSet(TaskSet):
         
     @task(1)
     def predict_test(self):
+        myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
-            '/predict_test', {"match_date": self._match_date, "home_team": self._home_team, "away_team": self._away_team})
+            '/predict_test', {
+                "match_date": self._match_date, 
+                "home_team": self._home_team, 
+                "away_team": self._away_team},
+            headers=myheaders)
 
 class MetricsLocust(FastHttpUser):
     tasks = {MetricsTaskSet}
