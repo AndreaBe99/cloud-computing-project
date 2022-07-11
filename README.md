@@ -103,5 +103,5 @@ METODO DEL TUTORIAL CON DUE CLUSTER:
     - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
     - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
     - `docker images`
-    - Modificare IP nel file `loadtest-deployment.yaml`.
+    - Modificare IP e image name nel file `loadtest-deployment.yaml`.
     - `kubectl create -f loadtest-deployment.yaml`
