@@ -20,6 +20,7 @@ from locust import FastHttpUser, TaskSet, task
 
 import pandas as pd
 import random
+import json
 
 # Dataset Github Path
 PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
@@ -33,6 +34,7 @@ class MetricsTaskSet(TaskSet):
     _home_team = None
     _away_team = None
 
+    @events.test_start.add_listener
     def on_start(self):
         # Create a dataframe from the HTML form
         # Get tomorrow's date
@@ -52,10 +54,11 @@ class MetricsTaskSet(TaskSet):
     def predict_test(self):
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
-            '/predict_test', {
+            '/predict_test',
+            data=json.dumps({
                 "match_date": self._match_date, 
                 "home_team": self._home_team, 
-                "away_team": self._away_team},
+                "away_team": self._away_team}),
             headers=myheaders)
 
 class MetricsLocust(FastHttpUser):
