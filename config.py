@@ -5,9 +5,9 @@ PORT = int(env.get("PORT", 8080))
 DEBUG_MODE = int(env.get("DEBUG_MODE", 1))
 
 # GCP Credentials
-PROJECT_NAME = "bet-football-project"
-BUCKET_NAME = "bet-football-project-bucket-model"
-GOOGLE_APPLICATION_CREDENTIALS = PROJECT_NAME + '-key.json'
+PROJECT_NAME = 'bet-football-project'
+BUCKET_NAME = 'bet-football-project-bucket-model'
+GOOGLE_APPLICATION_CREDENTIALS = 'bet-football-project-key.json'
 
 # Dataset Github Path
 PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
