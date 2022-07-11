@@ -121,43 +121,20 @@ def predict_test():
     # Load Model
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
-    # TEST
-    try:
-        data_data = request.data["match_date"]
-        logging.info("data: %s", data_data)
-        print("data:", data_data)
-    except: 
-        logging.info("data: %s", "error")
-
-    try:
-        form_data = request.form["match_date"]
-        logging.info("form: %s", form_data)
-        print("form:", form_data)
-    except:
-        logging.info("form: %s", "error")
-
-    try:
-        json_data = request.get_json(force=True)
-        logging.info("json: %s", json_data["match_date"])
-        print("json:", json_data["match_date"])
-    except:
-        logging.info("json: %s", "error")
-
-    try:
-        values_data = request.values["match_date"]
-        logging.info("values: %s", values_data)
-        print("values:", values_data)
-    except:
-        logging.info("values: %s", "error")
     
-    match_date = request.values.get('match_date')
-    home_team = request.values.get('home_team')
-    away_team = request.values.get('away_team')
-    logging.info('Date: %s, Home: %s, Away:%s', match_date, home_team, away_team)
+    request_data = request.get_json()
+    match_date = request_data['match_date']
+    home_team = request_data['home_team']
+    away_team = request_data['away_team']
+
+    # match_date = request.values.get('match_date')
+    # home_team = request.values.get('home_team')
+    # away_team = request.values.get('away_team')
 
     if not match_date or not home_team or not away_team:
-        print(match_date, home_team, away_team)
         match_date, home_team, away_team = on_start()
+
+    logging.info('Date: %s, Home: %s, Away: %s', match_date, home_team, away_team)
 
     # Calculate the season
     # - if month >  6 --> season = year
