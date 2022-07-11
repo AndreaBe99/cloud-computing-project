@@ -16,7 +16,7 @@
 from typing import final
 
 from datetime import timedelta, datetime, date
-from locust import FastHttpUser, TaskSet, task
+from locust import FastHttpUser, TaskSet, task, events
 
 import pandas as pd
 import random
