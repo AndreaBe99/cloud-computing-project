@@ -125,12 +125,15 @@ def predict_test():
     data_data = request.data["match_date"]
     logging.info("data: %s", data_data)
     print("data:", data_data)
+
     form_data = request.form["match_date"]
     logging.info("form: %s", form_data)
     print("form:", form_data)
+
     json_data = request.get_json(force=True)
     logging.info("json: %s", json_data["match_date"])
     print("json:", json_data["match_date"])
+    
     values_data = request.values["match_date"]
     logging.info("values: %s", values_data)
     print("values:", values_data)
