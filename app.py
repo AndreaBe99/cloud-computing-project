@@ -7,6 +7,7 @@ from pycaret.classification import *
 from df_manipulation import *
 import config
 from datetime import datetime, date, timedelta
+import logging
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
@@ -121,9 +122,18 @@ def predict_test():
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
+    # TEST
+    form_data = request.form
+    logging.info("form: {}".format(form_data))
+    json_data = request.get_json(force=True)
+    logging.info("json: {}".format(json_data))
+    values_data = request.values
+    logging.info("values: {}".format(values_data))
+
     match_date = request.values.get('match_date')
     home_team = request.values.get('home_team')
     away_team = request.values.get('away_team')
+    logging.info('Date:{}, Home:{}, Away:{}'.format(match_date, home_team, away_team))
 
     if not match_date or not home_team or not away_team:
         print(match_date, home_team, away_team)

@@ -54,10 +54,10 @@ class MetricsTaskSet(TaskSet):
         
     @task
     def predict_test(self):
-        self.on_start()
+        # self.on_start()
 
         # Test
-        logging.info("VARIABLE:", self._match_date, self._home_team, self._away_team)
+        logging.info('Date:{}, Home:{}, Away:{}'.format(self._match_date, self._home_team, self._away_team))
 
         print(self._match_date, self._home_team, self._away_team)
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
