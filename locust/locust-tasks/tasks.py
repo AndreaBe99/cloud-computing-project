@@ -39,6 +39,8 @@ class MetricsTaskSet(TaskSet):
         # Create a dataframe from the HTML form
         # Get tomorrow's date
         self._match_date = date.today() + timedelta(days=1)
+        self._match_date = self._match_date.strftime("%Y/%m/%d")
+
         all_season = pd.read_csv(DATASET, low_memory=False)
 
         # Check Teams
