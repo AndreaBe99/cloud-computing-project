@@ -6,8 +6,8 @@ DEBUG_MODE = int(env.get("DEBUG_MODE", 1))
 
 # GCP Credentials
 PROJECT_NAME = 'cc-project-football-bet'
-BUCKET_NAME = PROJECT_NAME + '-bucket-model'
-GOOGLE_APPLICATION_CREDENTIALS = PROJECT_NAME + '-key.json'
+BUCKET_NAME = 'cc-project-football-bet-bucket-model'
+GOOGLE_APPLICATION_CREDENTIALS = 'cc-project-football-bet-key.json'
 
 # Dataset Github Path
 PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
@@ -18,9 +18,9 @@ RF_MODEL = "cloud_project_rf_tuned"
 
 # Column Name
 COLS_DF = ['_rank', '_ls_rank', '_days_ls_match', '_points',
-        '_l_points', '_l_wavg_points', '_goals', '_l_goals', '_l_wavg_goals',
-        '_goals_sf', '_l_goals_sf', '_l_wavg_goals_sf', '_wins', '_draws',
-        '_losses', '_win_streak', '_loss_streak', '_draw_streak']
+           '_l_points', '_l_wavg_points', '_goals', '_l_goals', '_l_wavg_goals',
+           '_goals_sf', '_l_goals_sf', '_l_wavg_goals_sf', '_wins', '_draws',
+           '_losses', '_win_streak', '_loss_streak', '_draw_streak']
 
 COLS_URL = ['season', 'Date', 'HomeTeam', 'AwayTeam']
 

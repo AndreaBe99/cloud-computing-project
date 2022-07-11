@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/bet-football-project/locust-task
+          image: gcr.io/cc-project-football-bet/locust-task
           env:
             - name: LOCUST_MODE
               value: master
             - name: TARGET_HOST
-              value: http://34.154.239.33:80
+              value: http://34.154.181.215:80
           ports:
             - name: loc-master-web
               containerPort: 8089
@@ -55,14 +55,14 @@ spec:
     spec:
       containers:
         - name: locust
-          image: gcr.io/bet-football-project/locust-task
+          image: gcr.io/cc-project-football-bet/locust-task
           env:
             - name: LOCUST_MODE
               value: worker
             - name: LOCUST_MASTER
               value: locust-master
             - name: TARGET_HOST
-              value: http://34.154.239.33:80
+              value: http://34.154.181.215:80
 ---
 kind: Service
 apiVersion: v1
