@@ -46,7 +46,6 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 3. Eseguire il notebook su colab (https://colab.research.google.com/drive/1JC7NXojjxu8R2VDC32thno5Bhets-IDx#scrollTo=XXDNis6ZAi1w) per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
 
 4. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
-    - `export PROJECT_ID="$(gcloud config get-value project -q)"`
     - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
     - `cd cloud-computing-project`
     - Modificare in `config.py`: `GOOGLE_APPLICATION_CREDENTIALS`, `PROJECT_NAME`, `BUCKET_NAME` e aggiungere il .json della chiave.
