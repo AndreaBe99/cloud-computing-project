@@ -125,10 +125,13 @@ def predict_test():
     # TEST
     form_data = request.form
     logging.info("form: {}".format(form_data))
+    print("form:", form_data)
     json_data = request.get_json(force=True)
     logging.info("json: {}".format(json_data))
+    print("json:", json_data)
     values_data = request.values
     logging.info("values: {}".format(values_data))
+    print("values:", values_data)
 
     match_date = request.values.get('match_date')
     home_team = request.values.get('home_team')
