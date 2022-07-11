@@ -17,6 +17,7 @@ from typing import final
 
 from datetime import timedelta, datetime, date
 from locust import FastHttpUser, TaskSet, task, events
+import logging
 
 import pandas as pd
 import random
@@ -56,10 +57,7 @@ class MetricsTaskSet(TaskSet):
         self.on_start()
 
         # Test
-        import os
-        os.environ["MATCH_DATE"] = self._match_date
-        os.environ["HOME_TEAM"] = self._home_team
-        os.environ["AWAY_TEAM"] = self._away_team
+        logging.info("VARIABLE:", self._match_date, self._home_team, self._away_team)
 
         print(self._match_date, self._home_team, self._away_team)
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
