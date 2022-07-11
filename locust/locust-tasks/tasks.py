@@ -51,9 +51,16 @@ class MetricsTaskSet(TaskSet):
         r = random.randint(0, len(all_away_team) - 1)
         self._away_team = all_away_team[r]
         
-    @task(1)
+    @task
     def predict_test(self):
         self.on_start()
+
+        # Test
+        import os
+        os.environ["MATCH_DATE"] = self._match_date
+        os.environ["HOME_TEAM"] = self._home_team
+        os.environ["AWAY_TEAM"] = self._away_team
+
         print(self._match_date, self._home_team, self._away_team)
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(

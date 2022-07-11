@@ -6,7 +6,7 @@ from flask import Flask, request, url_for, redirect, render_template, jsonify
 from pycaret.classification import *
 from df_manipulation import *
 import config
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
@@ -114,7 +114,7 @@ def predict():
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
 
-@app.route('/predict_test',  methods=['GET', 'POST'])
+@app.route('/predict_test',  methods=['POST'])
 def predict_test():
 
     # Load Model
@@ -125,7 +125,9 @@ def predict_test():
     home_team = request.values.get('home_team')
     away_team = request.values.get('away_team')
 
-    print(match_date, home_team, away_team)
+    if not match_date or not home_team or not away_team:
+        print(match_date, home_team, away_team)
+        match_date, home_team, away_team = on_start()
 
     # Calculate the season
     # - if month >  6 --> season = year
@@ -150,6 +152,26 @@ def predict_test():
 
     # return jsonify(prediction)
     return '/predict_test - season: {}, match_date: {}, home_team: {}, away_team: {}, prediction: {}\n'.format(season, match_date, home_team, away_team, prediction)
+
+# This method is used in case of error
+def on_start():
+    # Create a dataframe from the HTML form
+    # Get tomorrow's date
+    match_date = date.today() + timedelta(days=1)
+    match_date = match_date.strftime("%Y-%m-%d")
+
+    all_season = pd.read_csv(config.DATASET, low_memory=False)
+
+    # Check Teams
+    r = random.randint(0, all_season.HomeTeam.nunique() - 1)
+    home_team = all_season.HomeTeam.unique()[r]
+
+    all_away_team = all_season.AwayTeam.unique()
+    all_away_team = all_away_team[all_away_team != home_team]
+    r = random.randint(0, len(all_away_team) - 1)
+    away_team = all_away_team[r]
+    return match_date, home_team, away_team
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=config.PORT, debug=config.DEBUG_MODE)
