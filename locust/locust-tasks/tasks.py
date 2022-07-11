@@ -34,7 +34,6 @@ class MetricsTaskSet(TaskSet):
     _home_team = None
     _away_team = None
 
-    @events.test_start.add_listener
     def on_start(self):
         # Create a dataframe from the HTML form
         # Get tomorrow's date
@@ -54,6 +53,8 @@ class MetricsTaskSet(TaskSet):
         
     @task(1)
     def predict_test(self):
+        self.on_start()
+        print(self._match_date, self._home_team, self._away_team)
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
             '/predict_test',
