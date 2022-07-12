@@ -122,16 +122,10 @@ def predict_test():
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
     
-    # request_data = request.json
-    print("JSON: ")
-    print(request.json)
-    print("DATA: ")
-    print(request.data)
-    
-    request_data = request.data
+    request_data = request.json
     logging.debug(request_data)
 
-    match_date = request_data[0]
+    match_date = request_data['match_date']
     home_team = request_data['home_team']
     away_team = request_data['away_team']
 
