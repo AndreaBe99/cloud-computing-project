@@ -58,12 +58,12 @@ class MetricsTaskSet(TaskSet):
 
         # Test
         logging.info('Date:{}, Home:{}, Away:{}'.format(self._match_date, self._home_team, self._away_team))
-
         print(self._match_date, self._home_team, self._away_team)
+        
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
             '/predict_test',
-            data=json.dumps({
+            json=json.dumps({
                 "match_date": self._match_date, 
                 "home_team": self._home_team, 
                 "away_team": self._away_team}),
