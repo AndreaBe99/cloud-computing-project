@@ -122,11 +122,12 @@ def predict_test():
     model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
     
-    # request_data = request.get_json()
-    logging.debug('Date: %s, Home: %s, Away: %s',
-                request_data['match_date'], request_data['home_team'], request_data['away_team'])
-    
-    request_data = request.json
+    # request_data = request.json
+    print("JSON: ", request.json)
+    print("DATA: ", request.data)
+    request_data = request.data
+
+
     match_date = request_data['match_date']
     home_team = request_data['home_team']
     away_team = request_data['away_team']
@@ -134,7 +135,7 @@ def predict_test():
     # if not match_date or not home_team or not away_team:
     #    match_date, home_team, away_team = on_start()
 
-    logging.info('Date: %s, Home: %s, Away: %s', match_date, home_team, away_team)
+    logging.debug('Date: %s, Home: %s, Away: %s', match_date, home_team, away_team)
 
     # Calculate the season
     # - if month >  6 --> season = year
