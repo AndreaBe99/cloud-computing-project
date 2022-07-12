@@ -2,7 +2,7 @@ import os
 import jinja2
 import pandas as pd
 import random
-from flask import Flask, request, url_for, redirect, render_template, jsonify
+from flask import Flask, request, request_tearing_down, url_for, redirect, render_template, jsonify
 from pycaret.classification import *
 from df_manipulation import *
 import config
@@ -123,12 +123,15 @@ def predict_test():
                     'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
     
     # request_data = request.json
-    print("JSON: ", request.json)
-    print("DATA: ", request.data)
+    print("JSON: ")
+    print(request.json)
+    print("DATA: ")
+    print(request.data)
+    
     request_data = request.data
+    logging.debug(request_data)
 
-
-    match_date = request_data['match_date']
+    match_date = request_data[0]
     home_team = request_data['home_team']
     away_team = request_data['away_team']
 
