@@ -59,14 +59,15 @@ class MetricsTaskSet(TaskSet):
         # Test
         logging.info('Date:{}, Home:{}, Away:{}'.format(self._match_date, self._home_team, self._away_team))
         print(self._match_date, self._home_team, self._away_team)
-        
+
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
             '/predict_test',
-            json=json.dumps({
+            json={
                 "match_date": self._match_date, 
                 "home_team": self._home_team, 
-                "away_team": self._away_team}),
+                "away_team": self._away_team
+                },
             headers=myheaders)
 
 class MetricsLocust(FastHttpUser):
