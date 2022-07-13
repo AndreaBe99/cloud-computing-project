@@ -10,7 +10,7 @@ BUCKET_NAME = 'cc-project-football-bet-bucket-model'
 GOOGLE_APPLICATION_CREDENTIALS = 'cc-project-football-bet-key.json'
 
 # Dataset Github Path
-PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/datasets/"
+PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/src/"
 DATASET = PATH_DATASET + "final_all_season.csv"
 
 # Model Name
