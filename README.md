@@ -46,26 +46,28 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 3. Eseguire il notebook su colab (https://colab.research.google.com/drive/1JC7NXojjxu8R2VDC32thno5Bhets-IDx#scrollTo=XXDNis6ZAi1w) per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
 
 4. Eseguire la seguente lista di comandi per creare un docker container e un cluster:
-    - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
-    - `cd cloud-computing-project`
-    - Modificare in `config.py`: `GOOGLE_APPLICATION_CREDENTIALS`, `PROJECT_NAME`, `BUCKET_NAME` e aggiungere il .json della chiave.
-    - `gcloud config set compute/zone europe-west8-a`
-    - `gcloud beta container --project ${PROJECT_ID} clusters create football-bet-cluster --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
-    - `gcloud container clusters get-credentials football-bet-cluster --zone europe-west8-a --project ${PROJECT_ID}`
-    - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
-    - `docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/bet-app:v1` to test localy.
-    - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
-    - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
-    - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (EXTERNAL_IP=http://34.154.181.215:80, wait some minute)
+    - Football Bet App Cluster:
+      - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
+      - `cd cloud-computing-project`
+      - Modificare in `config.py`: `GOOGLE_APPLICATION_CREDENTIALS`, `PROJECT_NAME`, `BUCKET_NAME` e aggiungere il .json della chiave.
+      - `gcloud config set compute/zone europe-west8-a`
+      - `gcloud beta container --project ${PROJECT_ID} clusters create football-bet-cluster --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
+      - `gcloud container clusters get-credentials football-bet-cluster --zone europe-west8-a --project ${PROJECT_ID}`
+      - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
+      - `docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/bet-app:v1` to test localy.
+      - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
+      - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
+      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (EXTERNAL_IP=http://34.154.45.37:80, wait some minute)
+      - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
 
+    - Locust Cluster:
 
-
-    - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone europe-west8-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
-    - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
-    - `cd locust`
-    - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
-    - `docker images`
-    - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
-    - Modificare IP e image name nel file `loadtest-deployment.yaml`.
-    - `kubectl create -f loadtest-deployment.yaml`
-    - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.70.220:8089)
+      - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone europe-west8-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
+      - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
+      - `cd locust`
+      - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
+      - `docker images`
+      - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
+      - Modificare IP e image name nel file `loadtest-deployment.yaml`.
+      - `kubectl create -f loadtest-deployment.yaml`
+      - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.70.220:8089)
