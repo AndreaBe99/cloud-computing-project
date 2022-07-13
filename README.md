@@ -57,7 +57,7 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/bet-app:v1` to test localy.
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
       - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
-      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (EXTERNAL_IP=http://34.154.45.37:80, wait some minute)
+      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (http://34.154.185.112:80, wait some minute)
       - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
 
     - Locust Cluster:
@@ -70,4 +70,6 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
       - Modificare IP e image name nel file `loadtest-deployment.yaml`.
       - `kubectl create -f loadtest-deployment.yaml`
-      - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.70.220:8089)
+      - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.219.156:8089)
+
+      - add `limits: cpu: 800m   requests: cpu: 10m` in yaml file
