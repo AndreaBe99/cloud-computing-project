@@ -50,7 +50,7 @@ def predict():
 
     # Load Model
     # model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
-
+    all_season = pd.read_csv(config.DATASET, low_memory=False)
     # Create a dataframe from the HTML form
     match_date = str(request.form['match_date'])
     home_team = str(request.form['home_team'])
