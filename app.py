@@ -7,7 +7,6 @@ from pycaret.classification import *
 from df_manipulation import *
 import config
 from datetime import datetime, date, timedelta
-import logging
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 

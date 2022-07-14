@@ -19,7 +19,7 @@ Finally, in terms of testing / validating the performance of our cloud service, 
 - Google Cloud Pricing Calculator: we will use this tool to predict the estimated costs necessary for the development of the project.
 
 ## Requirement
-Per far girare flask:
+Per far girare flask in locale:
   - avere python3 sulla propia macchina
   - installarlo con il comando: pip install flask
   - verificare l'installazione con: python -c "import flask; print(flask.__version__)"
