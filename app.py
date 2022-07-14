@@ -13,14 +13,14 @@ os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENT
 
 app = Flask(__name__)
 
+# Load Model
+model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
 # Function to create usefull features
-
-
 def dataset_manipulation(df):
     # Load Main Dataset
     all_season = pd.read_csv(config.DATASET, low_memory=False)
@@ -43,14 +43,20 @@ def dataset_manipulation(df):
 
     return df
 
+# Calculate the season
+def get_season(match_date):
+    # - if month >  6 --> season = year
+    # - if month <= 6 --> season = year - 1
+    season = None
+    if match_date.month > 6:
+        season = match_date.year
+    elif match_date.month <= 6:
+        season = match_date.year - 1
+    return season
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
-
-    # Load Model
-    model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
-
     # Create a dataframe from the HTML form
     match_date = str(request.form['match_date'])
     home_team = str(request.form['home_team'])
@@ -70,9 +76,9 @@ def predict():
         return render_template('home.html', error="Ops! "+error, match_date=match_date, home_team=home_team, away_team=away_team)
 
     # Check Date
-    datetime_object = datetime.strptime(match_date, '%Y-%m-%d').date()
+    match_date = datetime.strptime(match_date, '%Y-%m-%d').date()
     today = date.today()
-    if datetime_object < today:
+    if match_date < today:
         error = 'The date you selected is in the past'
 
     # Check Teams
@@ -86,13 +92,7 @@ def predict():
         return render_template('home.html', error="Ops! "+error, match_date=match_date, home_team=home_team, away_team=away_team)
 
     # Calculate the season
-    # - if month >  6 --> season = year
-    # - if month <= 6 --> season = year - 1
-    season = None
-    if datetime_object.month > 6:
-        season = datetime_object.year
-    elif datetime_object.month <= 6:
-        season = datetime_object.year - 1
+    season = get_season(match_date)
 
     final = [season, match_date, home_team, away_team]
 
@@ -116,33 +116,15 @@ def predict():
 
 
 @app.route('/predict_test',  methods=['POST'])
-def predict_test():
-
-    # Load Model
-    model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={
-                    'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
-    
+def predict_test():   
     request_data = request.json
-    logging.debug(request_data)
 
     match_date = request_data['match_date']
     home_team = request_data['home_team']
     away_team = request_data['away_team']
 
-    # if not match_date or not home_team or not away_team:
-    #    match_date, home_team, away_team = on_start()
-
-    logging.debug('Date: %s, Home: %s, Away: %s', match_date, home_team, away_team)
-
     # Calculate the season
-    # - if month >  6 --> season = year
-    # - if month <= 6 --> season = year - 1
-    season = None
-    match_date = datetime.strptime(match_date, '%Y-%m-%d').date()
-    if match_date.month > 6:
-        season = match_date.year
-    elif match_date.month <= 6:
-        season = match_date.year - 1
+    season = get_season(match_date)
 
     final = [season, match_date, home_team, away_team]
 
@@ -157,25 +139,6 @@ def predict_test():
 
     # return jsonify(prediction)
     return '/predict_test - season: {}, match_date: {}, home_team: {}, away_team: {}, prediction: {}\n'.format(season, match_date, home_team, away_team, prediction)
-
-# This method is used in case of error
-def on_start():
-    # Create a dataframe from the HTML form
-    # Get tomorrow's date
-    match_date = date.today() + timedelta(days=1)
-    match_date = match_date.strftime("%Y-%m-%d")
-
-    all_season = pd.read_csv(config.DATASET, low_memory=False)
-
-    # Check Teams
-    r = random.randint(0, all_season.HomeTeam.nunique() - 1)
-    home_team = all_season.HomeTeam.unique()[r]
-
-    all_away_team = all_season.AwayTeam.unique()
-    all_away_team = all_away_team[all_away_team != home_team]
-    r = random.randint(0, len(all_away_team) - 1)
-    away_team = all_away_team[r]
-    return match_date, home_team, away_team
 
 
 if __name__ == '__main__':
