@@ -21,8 +21,7 @@ import pandas as pd
 import random
 
 # Dataset Github Path
-PATH_DATASET = "../../src/"
-DATASET = PATH_DATASET + "final_all_season.csv"
+DATASET = "final_all_season.csv"
 
 
 # [START locust_test_task]
