@@ -148,6 +148,7 @@ def predict_test():
     away_team = request_data['away_team']
 
     # Calculate the season
+    match_date = datetime.strptime(match_date, '%Y-%m-%d').date()
     season = get_season(match_date)
 
     final = [season, match_date, home_team, away_team]
