@@ -16,7 +16,7 @@
 from typing import final
 
 from datetime import timedelta, datetime, date
-from locust import FastHttpUser, TaskSet, task, events
+from locust import FastHttpUser, TaskSet, task, between
 import logging
 
 import pandas as pd
@@ -34,6 +34,7 @@ class MetricsTaskSet(TaskSet):
     _match_date = None
     _home_team = None
     _away_team = None
+    wait_time = between(1, 3)
 
     def on_start(self):
         # Create a dataframe from the HTML form
