@@ -5,4 +5,5 @@ certifi
 itsdangerous
 numpy
 pandas
+sklearn
 google-cloud-storage
