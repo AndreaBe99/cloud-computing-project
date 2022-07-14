@@ -1,0 +1,5 @@
+Method,Name,Error,Occurrences
+POST,/predict_test,"BadStatusCode('http://34.154.70.220:80/predict_test', code=500)",52
+POST,/predict_test,"ConnectionRefusedError(111, 'Connection refused')",54045
+POST,/predict_test,"RetriesExceeded('http://34.154.70.220:80/predict_test', 1, original=timed out)",41
+POST,/predict_test,"ConnectionResetError(104, 'Connection reset by peer')",1

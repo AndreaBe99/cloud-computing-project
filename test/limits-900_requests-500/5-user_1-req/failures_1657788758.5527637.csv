@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences
+POST,/predict_test,"BadStatusCode('http://34.154.70.220:80/predict_test', code=500)",23
+POST,/predict_test,"ConnectionRefusedError(111, 'Connection refused')",3
+POST,/predict_test,"RetriesExceeded('http://34.154.70.220:80/predict_test', 1, original=timed out)",9
