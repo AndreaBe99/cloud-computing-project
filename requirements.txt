@@ -4,4 +4,5 @@ gunicorn
 certifi
 itsdangerous
 numpy
+pandas
 google-cloud-storage
