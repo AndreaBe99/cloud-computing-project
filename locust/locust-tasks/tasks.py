@@ -15,13 +15,10 @@
 # limitations under the License.
 from typing import final
 
-from datetime import timedelta, datetime, date
+from datetime import timedelta, date
 from locust import FastHttpUser, TaskSet, task, between
-import logging
-import config
 import pandas as pd
 import random
-import json
 
 # Dataset Github Path
 PATH_DATASET = "../../src/"
