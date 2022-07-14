@@ -18,13 +18,13 @@ from typing import final
 from datetime import timedelta, datetime, date
 from locust import FastHttpUser, TaskSet, task, between
 import logging
-
+import config
 import pandas as pd
 import random
 import json
 
 # Dataset Github Path
-PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/src/"
+PATH_DATASET = "../../src/"
 DATASET = PATH_DATASET + "final_all_season.csv"
 
 
@@ -55,12 +55,6 @@ class MetricsTaskSet(TaskSet):
         
     @task
     def predict_test(self):
-        # self.on_start()
-
-        # Test
-        logging.info('Date:{}, Home:{}, Away:{}'.format(self._match_date, self._home_team, self._away_team))
-        print(self._match_date, self._home_team, self._away_team)
-
         myheaders = {'Content-Type': 'application/json', 'Accept': 'application/json'}
         self.client.post(
             '/predict_test',

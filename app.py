@@ -143,12 +143,12 @@ def predict():
 def predict_test():   
     request_data = request.json
 
-    match_date = request_data['match_date']
+    match_date_str = request_data['match_date']
     home_team = request_data['home_team']
     away_team = request_data['away_team']
 
     # Calculate the season
-    match_date = datetime.strptime(match_date, '%Y-%m-%d').date()
+    match_date = datetime.strptime(match_date_str, '%Y-%m-%d').date()
     season = get_season(match_date)
 
     final = [season, match_date, home_team, away_team]
