@@ -34,7 +34,7 @@ class MetricsTaskSet(TaskSet):
     _match_date = None
     _home_team = None
     _away_team = None
-    wait_time = between(1, 3)
+    wait_time = between(1, 5)
 
     def on_start(self):
         # Create a dataframe from the HTML form
