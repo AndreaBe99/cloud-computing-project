@@ -23,7 +23,7 @@ Per far girare flask:
   - avere python3 sulla propia macchina
   - installarlo con il comando: pip install flask
   - verificare l'installazione con: python -c "import flask; print(flask.__version__)"
-  - per farlo girare usare il comando 'flask run' oppure 'python nomefile.py' da terminale dopodichè verificare corretta esecuzione all'indirizzo 127.0.0.1:5000/
+  - per farlo girare usare il comando 'flask run' oppure 'python nomefile.py' da terminale dopodichè verificare corretta esecuzione all'indirizzo 127.0.0.1:5000
 
 Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
   - cartella principale che contiene il file .py
@@ -41,7 +41,7 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
     - `gcloud services enable containerregistry.googleapis.com` 
     - `gcloud services enable container.googleapis.com`
    
-   per ottenere le credenziali e su GCP nella sezione `API e servizi --> Credenziali --> Account di Servizio` cliccare sull'email. Dalla schermata che si apre andare in `Chiavi --> Aggiungi Chiave --> Crea Chiave --> Json`
+   Per ottenere le credenziali andare su GCP nella sezione `API e servizi --> Credenziali --> Account di Servizio` cliccare sull'email. Dalla schermata che si apre andare in `Chiavi --> Aggiungi Chiave --> Crea Chiave --> Json` e scaricare il json.
 
 3. Eseguire il notebook su colab (https://colab.research.google.com/drive/1JC7NXojjxu8R2VDC32thno5Bhets-IDx#scrollTo=XXDNis6ZAi1w) per creare un bucket nel progetto e così salvare il modello (è necessario modificare i nomi del progetto e eventualmente nel bucket all'interno di colab)
 
@@ -70,6 +70,6 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
       - Modificare IP e image name nel file `loadtest-deployment.yaml`.
       - `kubectl create -f loadtest-deployment.yaml`
-      - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.110.176:8089)
+      - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.185.168:8089)
 
       - add `limits: cpu: 800m   requests: cpu: 10m` in yaml file
