@@ -14,7 +14,8 @@ PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-pro
 DATASET = PATH_DATASET + "final_all_season.csv"
 
 # Model Name
-MODEL_PATH = 'src/model/'
+DOCKER_PATH = 'app/'
+MODEL_PATH = DOCKER_PATH + 'src/model/'
 LR_MODEL = MODEL_PATH + 'lr_model.pkl'
 GB_MODEL = MODEL_PATH + 'gb_model.pkl'
 RF_MODEL = MODEL_PATH + 'rf_model.pkl'
