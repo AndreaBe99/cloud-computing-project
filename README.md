@@ -57,7 +57,7 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/bet-app:v1` to test localy.
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
       - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
-      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (http://34.154.45.37:80, wait some minute)
+      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (http://34.154.175.232:80, wait some minute)
       - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
 
     - Locust Cluster:
