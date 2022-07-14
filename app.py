@@ -1,19 +1,19 @@
-import os
-import jinja2
-import pandas as pd
-import random
-from flask import Flask, request, request_tearing_down, url_for, redirect, render_template, jsonify
-from pycaret.classification import *
-from df_manipulation import *
 import config
-from datetime import datetime, date, timedelta
+import os
+import pandas as pd
+import numpy as np
+import json
+import pickle
+from flask import Flask, request, render_template
+from df_manipulation import *
+from datetime import datetime, date
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = config.GOOGLE_APPLICATION_CREDENTIALS
 
 app = Flask(__name__)
 
 # Load Model
-model = load_model(model_name=config.RF_MODEL, platform='gcp', authentication={'project': config.PROJECT_NAME, 'bucket': config.BUCKET_NAME})
+model = pickle.load(open(config.LR_MODEL, 'rb'))
 
 @app.route('/')
 def home():
@@ -21,6 +21,12 @@ def home():
 
 # Function to create usefull features
 def dataset_manipulation(df):
+
+    # Opening JSON file
+    categorical_map = None
+    with open(config.CATEGORICAL_MAP) as json_file:
+        categorical_map = json.load(json_file)
+
     # Load Main Dataset
     all_season = pd.read_csv(config.DATASET, low_memory=False)
 
@@ -39,7 +45,26 @@ def dataset_manipulation(df):
 
     #result between last game of the teams
     df['ls_winner'] = df.apply(lambda x: get_ls_winner(all_season, x), axis=1)
+    df['ls_winner'] = np.where(df.ls_winner == 'H', 1, np.where(df.ls_winner == 'A', 2, 0))
 
+    # Get max date
+    max_date = max(categorical_map["Date"].values()) + 1
+    # Convert to str
+    df['Date'] = df['Date'].dt.strftime('%m/%d/%Y')
+    # Map date from json
+    df["Date"] = df["Date"].map(categorical_map["Date"])
+    # Assign max date if null
+    df["Date"] = df['Date'].replace(np.nan, max_date)
+
+    # Map HomeTeam and AwayTeam from json 
+    df["HomeTeam"] = df["HomeTeam"].map(categorical_map["HomeTeam"])
+    df["AwayTeam"] = df["AwayTeam"].map(categorical_map["AwayTeam"])
+
+    # Get Nan column
+    nan_col = df.columns[df.isna().any()].tolist()
+    for col in nan_col:
+        df[col] = df[col].fillna(0)
+    
     return df
 
 # Calculate the season
@@ -57,9 +82,9 @@ def get_season(match_date):
 @app.route('/predict', methods=['POST'])
 def predict():
     # Create a dataframe from the HTML form
-    match_date = str(request.form['match_date'])
-    home_team = str(request.form['home_team'])
-    away_team = str(request.form['away_team'])
+    match_date = str(request.form['match_date']).lower().capitalize()
+    home_team = str(request.form['home_team']).lower().capitalize()
+    away_team = str(request.form['away_team']).lower().capitalize()
 
     error = None
 
@@ -105,15 +130,15 @@ def predict():
     data_unseen = dataset_manipulation(data_unseen)
 
     prediction = None
-    prediction = predict_model(model, data=data_unseen, round=0)
-    prediction = int(prediction.Label[0])
+    prediction = model.predict(data_unseen)
+    prediction = int(prediction[0])
 
     if prediction:
         return render_template('home.html', pred=prediction, match_date=match_date, home_team=home_team, away_team=away_team, image_home_path=image_home_path, image_away_path=image_away_path)
     else:
         return render_template('home.html', error="Ops! Something went wrong during the prediction.", match_date=match_date, home_team=home_team, away_team=away_team)
 
-
+# Method for Locust Testing
 @app.route('/predict_test',  methods=['POST'])
 def predict_test():   
     request_data = request.json
@@ -133,8 +158,8 @@ def predict_test():
     data_unseen = dataset_manipulation(data_unseen)
 
     prediction = None
-    prediction = predict_model(model, data=data_unseen, round=0)
-    prediction = int(prediction.Label[0])
+    prediction = model.predict(data_unseen)
+    prediction = int(prediction[0])
 
     # return jsonify(prediction)
     return '/predict_test - season: {}, match_date: {}, home_team: {}, away_team: {}, prediction: {}\n'.format(season, match_date, home_team, away_team, prediction)

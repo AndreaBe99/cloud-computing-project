@@ -14,7 +14,14 @@ PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-pro
 DATASET = PATH_DATASET + "final_all_season.csv"
 
 # Model Name
-RF_MODEL = "cloud_project_rf_tuned"
+MODEL_PATH = 'src/model/'
+LR_MODEL = MODEL_PATH + 'lr_model.pkl'
+GB_MODEL = MODEL_PATH + 'gb_model.pkl'
+RF_MODEL = MODEL_PATH + 'rf_model.pkl'
+KNN_MODEL = MODEL_PATH + 'knn_model.pkl'
+
+# JSON Mapping 
+CATEGORICAL_MAP = 'src/mapping_dict.json'
 
 # Column Name
 COLS_DF = ['_rank', '_ls_rank', '_days_ls_match', '_points',
