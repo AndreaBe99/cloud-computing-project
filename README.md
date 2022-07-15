@@ -50,20 +50,20 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `git clone https://github.com/AndreaBe99/cloud-computing-project.git`
       - `cd cloud-computing-project`
       - Modificare in `config.py`: `GOOGLE_APPLICATION_CREDENTIALS`, `PROJECT_NAME`, `BUCKET_NAME` e aggiungere il .json della chiave.
-      - `gcloud config set compute/zone europe-west8-a`
-      - `gcloud beta container --project ${PROJECT_ID} clusters create football-bet-cluster --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
-      - `gcloud container clusters get-credentials football-bet-cluster --zone europe-west8-a --project ${PROJECT_ID}`
+      - `gcloud config set compute/zone us-west1-a`
+      - `gcloud beta container --project ${PROJECT_ID} clusters create football-bet-cluster --zone us-west1-a  --scopes https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/devstorage.read_only,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/monitoring,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/trace.append --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing --enable-autorepair`
+      - `gcloud container clusters get-credentials football-bet-cluster --zone us-west1-a --project ${PROJECT_ID}`
       - `docker build -t gcr.io/${PROJECT_ID}/bet-app:v1 .`
       - `docker run --rm -p 8080:8080 gcr.io/${PROJECT_ID}/bet-app:v1` to test localy.
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/bet-app:v1`
       - `kubectl create deployment bet-app --image=gcr.io/${PROJECT_ID}/bet-app:v1`
-      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (http://34.154.45.37:80, wait some minute)
+      - `kubectl expose deployment bet-app --type=LoadBalancer --port 80 --target-port 8080`,and run `kubectl get svc bet-app` to get IP (http://34.154.69.98:80, wait some minute)
       - `kubectl autoscale deployment bet-app --cpu-percent=80 --min=1 --max=30`
 
     - Locust Cluster:
 
-      - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone europe-west8-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
-      - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
+      - `gcloud beta container --project ${PROJECT_ID} clusters create "loadtesting" --zone us-west1-a --scopes "https://www.googleapis.com/auth/compute","https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" --preemptible --num-nodes 3 --logging=NONE --monitoring=SYSTEM --enable-autoscaling --min-nodes 3 --max-nodes 7 --addons HorizontalPodAutoscaling,HttpLoadBalancing `
+      - `gcloud container clusters get-credentials loadtesting --zone us-west1-a --project ${PROJECT_ID}`
       - `cd locust`
       - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
