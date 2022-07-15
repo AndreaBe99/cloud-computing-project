@@ -35,7 +35,7 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
 1. Creare un progetto su google cloud
 
 2. Eseguire i comandi: 
-    - `export PROJECT_ID=cc-project-football-bet `  (qui inserire l'id del proprio progetto)
+    - `export PROJECT_ID=circular-acumen-356407`  (qui inserire l'id del proprio progetto)
     - `gcloud config set project $PROJECT_ID`
     - `gcloud auth configure-docker`
     - `gcloud services enable containerregistry.googleapis.com` 

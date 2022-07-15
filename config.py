@@ -5,12 +5,10 @@ PORT = int(env.get("PORT", 8080))
 DEBUG_MODE = int(env.get("DEBUG_MODE", 1))
 
 # GCP Credentials
-PROJECT_NAME = 'cc-project-football-bet'
-BUCKET_NAME = 'cc-project-football-bet-bucket-model'
-GOOGLE_APPLICATION_CREDENTIALS = 'cc-project-football-bet-key.json'
+PROJECT_NAME = 'circular-acumen-356407'
+BUCKET_NAME = 'circular-acumen-356407-bucket-model'
+GOOGLE_APPLICATION_CREDENTIALS = 'circular-acumen-356407-key.json'
 
-# Dataset Github Path
-# PATH_DATASET = "https://raw.githubusercontent.com/AndreaBe99/cloud-computing-project/main/src/"
 # Local
 PATH_DATASET = "src/"
 DATASET = PATH_DATASET + "final_all_season.csv"
