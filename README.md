@@ -66,7 +66,6 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `gcloud container clusters get-credentials loadtesting --zone europe-west8-a --project ${PROJECT_ID}`
       - `cd locust`
       - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
-      - `docker images`
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
       - Modificare IP e image name nel file `loadtest-deployment.yaml`.
       - `kubectl create -f loadtest-deployment.yaml`
