@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences
+POST,/predict_test,"RetriesExceeded('http://34.154.93.188:80/predict_test', 1, original=timed out)",114
