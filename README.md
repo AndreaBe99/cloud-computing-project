@@ -67,7 +67,7 @@ Bisogna avere la seguente configurazione affinchè Flask giri correttamente:
       - `cd locust`
       - `docker build -t gcr.io/${PROJECT_ID}/locust-task .`
       - `gcloud docker -- push gcr.io/${PROJECT_ID}/locust-task`
-      - Modificare IP e image name nel file `loadtest-deployment.yaml`.
+      - Modificare IP e image project name nel file `loadtest-deployment.yaml`.
       - `kubectl create -f loadtest-deployment.yaml`
       - `kubectl get service` (get EXTERNAL_IP of locust-master-web and go to http://EXTERNAL_IP:8089, in my case http://34.154.185.168:8089)
 
