@@ -24,7 +24,15 @@ Finally, in terms of testing / validating the performance of our cloud service, 
   - Locust: we want to modify the number of users in order to stress our application, using Locust for the simulation.
   - Google Cloud Pricing Calculator: we will use this tool to predict the estimated costs necessary for the development of the project.
 
-## 5 Deploy Machine Learning Model on GKE
+## 5 Repository Organization
+- Web-App: The Python files `app.py`,` config.py`, `df_manipulation.py` are necessary for the web application to work,` app.py` contains the Back-End logic with HTTP method management, while in `df_manipulation.py` there are a series of functions for extrapolating new features based on user input data. The `static` and` templates` folders contain the HTML, CSS files and the resources for displaying the application. Finally Dockerfile and requirement.txt are used for image build.
+
+- The `src` folder contains all the resources used for development, such as datasets or model files.
+
+- Locust: Finally, the `Locust` folder contains all the files needed to deploy the cluster for load tests. The most important file is `task.py` inside the` locust-task`, where the logic of the tester is developed.
+
+
+## 6 Deploy Machine Learning Model on GKE
 1. Create a project on Google Cloud Platform.
 
 2. Run the following commands to set the project on which to operate and obtain credentials / API:
