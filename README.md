@@ -4,6 +4,8 @@
 The aim of the project is to provide a machine learning model and create a web application that communicates with it, allowing users to input data and receive predictions about football matches. 
 We supposed the following real scenario: a user enters a series of data about a football match such as the match date, the name of the home team and the away team. Once these parameters have been entered, they will be processed and a prediction on the final outcome of the match will be provided in the output, i.e. victory of the home team, draw or victory of the away team.
 
+Our Presentation: [Cloud Computing Presentation](https://docs.google.com/presentation/d/1JdaCvFCW2jtfhTCZ9vC09MMd9lg4aHDTCxvhbHiF0T0/edit#slide=id.p)
+
 ## 2 Technologies
 The tools we used for the development are:
   - **Flask**, for the creation of the web-app through the use of Python, HTML and CSS code.
