@@ -1,5 +1,7 @@
 # cloud-computing-project
 
+Available at http://34.168.77.128:80
+
 ## 1 The Problem
 The aim of the project is to provide a machine learning model and create a web application that communicates with it, allowing users to input data and receive predictions about football matches. 
 We supposed the following real scenario: a user enters a series of data about a football match such as the match date, the name of the home team and the away team. Once these parameters have been entered, they will be processed and a prediction on the final outcome of the match will be provided in the output, i.e. victory of the home team, draw or victory of the away team.
